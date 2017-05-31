@@ -2,6 +2,16 @@
 
 > A film shopping website
 
+## dependencies
+```bash
+脚手架: vue-cli
+UI框架： element-UI
+前端： vue框架
+状态管理器: vuex
+路由控制器: vue-router
+(其实就是vue全家桶)  
+```
+
 ## Build Setup
 
 ``` bash
@@ -27,4 +37,36 @@ npm run e2e
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 原子类:
+(原子类的目的只是为了方便开发)
+1. m-x,ml-x,mr-x,mt-x,mb-x, p-x,pl-x,pr-x,pt-x,mb-x意义如下：(其中，x必须是5的倍数，取值为5-100)
+```css
+m-x {
+  margin: xpx
+}
+ml-x {
+  margin-left: xpx
+}
+mr-x {
+  margin-right: xpx
+}
+...
+```
+2. fl,fr,tl,tr,tc意义如下：
+```css
+fl {
+  float: left    
+}
+fr {
+  float: right
+}
+tl {
+  text-align: left
+}
+tr {
+  texdt-align: right
+}
+tc {
+  text-align: center
+}
+```

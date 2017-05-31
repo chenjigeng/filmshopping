@@ -1,16 +1,14 @@
 <template>
   <div id="app">
-    <Nav></Nav>
+    <Navbar></Navbar>
     <div class='main-content'>
-      <Radio v-model='radio'>测试1</Radio>
-      <Radio v-model='radio'>测试2</Radio>
       <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import Nav from './components/Nav'
+import Navbar from './components/Nav'
 export default {
   data () {
     return {
@@ -19,22 +17,83 @@ export default {
   },
   name: 'app',
   components: {
-    Nav
+    Navbar
   }
 }
 </script>
 
-<style lang='sass'>
-#app
+<style lang='scss'>
+body {
+  margin: 0;
+  padding: 0;
+}
+  
+#app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-
-#test
+}
+  
+#test {
   color: red
-
-.main-content
+}
+  
+.main-content {
   margin: 40px
+}
+  
+a {
+  text-decoration: none;
+}
+
+// 定义原子类
+@for $i from 1 through 20 {
+  .p-#{5*$i} {
+    padding: 5px * $i;
+  }
+  .pl-#{5*$i} {
+    padding-left: 5px * $i;
+  }
+  .pr-#{5*$i} {
+    padding-right: 5px * $i;
+  }
+  .pt-#{5*$i} {
+    padding-top: 5px * $i;
+  }
+  .pb-#{5*$i} {
+    padding-bottom: 5px * $i;
+  }
+  .m-#{5*$i} {
+    margin: 5px * $i;
+  }
+  .ml-#{5*$i} {
+    margin-left: 5px * $i;
+  }
+  .mr-#{5*$i} {
+    margin-right: 5px * $i;
+  }
+  .mb-#{5*$i} {
+    margin-bottom: 5px * $i;
+  }
+  .mt-#{5*$i} {
+    margin-top: 5px * $i;
+  }
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.tr {
+  text-align: right;
+}
+.tl {
+  text-align: left;
+}
+.tc {
+  text-align: center;
+}
 </style>

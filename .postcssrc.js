@@ -6,3 +6,16 @@ module.exports = {
     "autoprefixer": {}
   }
 }
+
+
+class parent {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+class child extends parent{
+  constructor(name) {
+    super(name);
+  }
+}

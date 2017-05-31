@@ -1,12 +1,16 @@
 <template lang='jade'>
-div
-  h1 你好
-  h2 这是一个主页
+.home
+  h1 这是主页
 </template>
 
 <script>
 export default {
-  name: 'home'
+  name: 'Home',
+  data () {
+    return {
+      myTheme: 'light'
+    }
+  }
 }
 </script>
 

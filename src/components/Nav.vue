@@ -1,13 +1,9 @@
 <template lang='jade'>
-Menu(mode='horizontal' theme='light' active-name='1')
-  router-link(to='/')
-    Menu-item(name='1')
-      Icon(type='ios-paper')
-      默认
-  router-link(to='/home')    
-    Menu-item(name='2')    
-      Icon(type='ios-people')
-      主页
+el-menu(theme='dark' class="el-menu-demo" mode="horizontal" default-active="2")
+  el-menu-item(index="1") 
+    router-link(to='/home') 主页
+  el-menu-item(index="2")
+    router-link(to='/123') 订单
 </template>
 
 <script>
@@ -26,5 +22,9 @@ h1
   color: red
 h2
   color: blue
+.el-menu-item
+  padding: 0
+  a
+    padding: 20px
 </style>
 
