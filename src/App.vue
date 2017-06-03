@@ -27,6 +27,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
+  background-color: green;
 }
   
 #app {
@@ -39,10 +40,6 @@ body {
   
 #test {
   color: red
-}
-  
-.main-content {
-  margin: 40px
 }
   
 a {
