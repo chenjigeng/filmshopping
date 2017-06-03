@@ -1,11 +1,10 @@
 <template lang='jade'>
 .home
   h1 这是主页
-  lr-dialog
+  el-button(@click='toggle') 弹框哦
 </template>
 
 <script>
-import LRdialog from '@/components/LRdialog'
 export default {
   name: 'Home',
   data () {
@@ -14,7 +13,11 @@ export default {
     }
   },
   components: {
-    'lr-dialog': LRdialog
+  },
+  methods: {
+    toggle () {
+      this.$store.commit('toggleDiglog')
+    }
   }
 }
 </script>

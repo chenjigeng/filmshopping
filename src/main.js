@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-default/index.css'
 import App from './App'
 import router from './router'
 import store from './store/index'
+import './styles/common.css'
 
 /* 引入库 */
 Vue.config.productionTip = false
