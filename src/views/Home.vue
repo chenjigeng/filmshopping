@@ -9,10 +9,6 @@
     div.carousel-container
     div.rank-container
   footer
-
-
-
-
 </template>
 
 <script>
@@ -36,4 +32,3 @@ h1
 h2
   color: blue
 </style>
-

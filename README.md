@@ -12,6 +12,10 @@ UI框架： element-UI
 (其实就是vue全家桶)  
 ```
 
+## 文件架构
+1. 公用的组件写在components
+2. 具体的页面逻辑写在views里
+
 ## Build Setup
 
 ``` bash
