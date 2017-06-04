@@ -2,20 +2,29 @@
   .SelectSeat
     el-row
       el-col.tips(v-bind:span='6')
-        .tip.m-5(v-for="item in 4" v-bind:key="item")
-          img(src="../assets/star1.png")
+        .tip.m-5
+          img(src="../assets/seat-lock.png")
           span 已选锁定坑
+        .tip.m-5
+          img(src="../assets/seat-blank.png")
+          span 可选空白坑
+        .tip.m-5
+          img(src="../assets/seat-choose.png")
+          span 已选约影坑
+        .tip.m-5
+          img(src="../assets/seat-choose.png")
+          span 选中这坑啦
       el-col.trapezoid(v-bind:span='12')
         div
       el-col.apply-btn-container(v-bind:span='6')
         el-button.apply-btn.font-10.bold 点我申请约影
     .seats.bg-white.p-30
-      .left.bg-black
-        img(src="../assets/star1.png" v-for='item in 24' v-bind:key='item')
+      .left
+        img(src="../assets/seat-blank.png" v-for='item in 24' v-bind:key='item')
       .middle
-        img(src="../assets/star1.png" v-for='item in 66' v-bind:key='item')
-      .right.bg-black
-        img(src="../assets/star1.png" v-for='item in 24' v-bind:key='item')
+        img(src="../assets/seat-blank.png" v-for='item in 66' v-bind:key='item')
+      .right
+        img(src="../assets/seat-blank.png" v-for='item in 24' v-bind:key='item')
 
     p.leave-msg(v-bind:class="l_msg_active ? 'show' : 'hide' ") 留言阿斯达敖德萨所多阿斯达阿斯达按时啊啊
     el-button.buy-btn.font-12.bold BUY
@@ -43,11 +52,13 @@ $bg-color: #fba214
   .el-row
     .tips
       .tip
+        color: white
+        font-weight: bold
         img
           width: 30px
         span
           position: relative
-          bottom: 8px
+          bottom: 10px
           left: 5px
     .trapezoid
       div
@@ -64,12 +75,12 @@ $bg-color: #fba214
         border: 0
   .seats
     display: flex
+    justify-content: space-around
     width: 1000px
-    height: 400px
     margin: 10px auto
     img
-      width: 30px
-      margin: 2.5px 2px
+      width: 34px
+      margin: 2.5px 0px
     .left
       width: 140px
       height: 100%
