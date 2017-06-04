@@ -22,7 +22,7 @@
       p.font8.bold.tl 影院同期热播电影
       el-row.movie-list
         el-col.movie-item.bg-black(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item")
-          img(src='../assets/poster (1).jpg')
+          img(src='../assets/poster1.jpg')
     .select-list
       .s-item.mb-20(v-for='item in 5' v-bind:key='item')
         span.font-10.bold.fl 9:00 - 11:00
