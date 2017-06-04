@@ -11,7 +11,7 @@
           p.m-5 location: xxxxxxxxxxxxxxxx
           p.m-5 tel: 111111111111
       .t-img-container
-        img(src='../assets/theater (1).jpg')
+        img(src='../assets/theater1.jpg')
       .t-rank
         p
           span.font-10.bold.mr-5.fix-rank 评分
@@ -23,7 +23,7 @@
       el-row.movie-list
         el-col.movie-item(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item"
           v-bind:class="index < 2 ? 'bg-black' : '' ")
-          img(src='../assets/poster (1).jpg')
+          img(src='../assets/poster1.jpg')
 </template>
 
 <script>

@@ -12,3 +12,8 @@
 button.row {
   width: 100%
 }
+
+.invisible {
+  display: none
+}
+  

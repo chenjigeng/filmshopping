@@ -3,9 +3,9 @@
 
 .home
   .tri
-  header
+  header#logo-header
     img.home-header-img(src="../assets/yue1.png" alt="约影")
-    strong 一个可以约影的网站
+    strong.ml-20 一个可以约影的网站
   .content
     .desc
       p#p1 DO YOU WANT
@@ -28,18 +28,17 @@
           span.font5.mg-hor-5.white xx
           span.font4 赞
         el-button.more-btn.font6 MORE
-
     .carousel-container
       .c-title.white.bg-black
         .tl.font7 HOT
         .tr.font7 MOVIE
       //- el-carousel(height="160px")
       //-   el-carousel-item
-      //-     h3 test3
+      //-     h3 test3''
       el-row.movie-list
         el-col.movie-item(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item"
           v-bind:class="index < 2 ? 'bg-black' : '' ")
-          img(src='../assets/poster (1).jpg')
+          img(src='../assets/poster.jpg')
 
 
 
@@ -126,6 +125,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+#logo-header
+  position: absolute
+  top: 0
+  left: 50%
+  margin-left: -10px
 .home
   min-width: 1000px
   header
@@ -135,6 +139,7 @@ export default {
       font-size: 20px
   
   .content
+    margin-top: 80px
     .desc
       p
         position: relative
