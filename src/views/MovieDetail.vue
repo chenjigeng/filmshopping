@@ -2,7 +2,7 @@
 el-row.movie-detail
   el-col.left(v-bind:span="12")
     .img-container
-      img(src="../assets/poster (2).jpg")
+      img(src="../assets/poster2.jpg")
   el-col.right(v-bind:span="12")
     .select-header
       span.font-10.bold.white SELECT MOVIE

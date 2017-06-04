@@ -94,22 +94,22 @@ a {
 }
 
 .fl {
-  float: left;
+  float: left !important;
 }
 .fr {
-  float: right;
+  float: right !important;
 }
 .clear {
   clear: both
 }
 .tr {
-  text-align: right;
+  text-align: right !important;
 }
 .tl {
-  text-align: left;
+  text-align: left !important;
 }
 .tc {
-  text-align: center;
+  text-align: center !important;
 }
 
 .white {

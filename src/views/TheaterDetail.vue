@@ -11,7 +11,7 @@
           p.m-5 location: xxxxxxxxxxxxxxxx
           p.m-5 tel: 111111111111
       .t-img-container
-        img(src='../assets/theater (1).jpg')
+        img(src='../assets/theater1.jpg')
       .t-rank
         p
           span.font-10.bold.mr-5.fix-rank 评分
@@ -28,7 +28,6 @@
         span.font-10.bold.fl 9:00 - 11:00
         el-button.font-10.s-btn.fr SELECT SEAT
         .clear
-
 </template>
 
 <script>
