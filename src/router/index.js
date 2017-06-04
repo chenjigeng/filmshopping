@@ -4,6 +4,7 @@ import NotFoundComponent from '../views/NotFoundComponent.vue'
 import Home from '@/views/Home'
 import MovieDetail from '@/views/MovieDetail'
 import TheaterDetail from '@/views/TheaterDetail'
+import SelectSeat from '@/views/SelectSeat'
 
 Vue.use(Router)
 
@@ -26,6 +27,10 @@ export default new Router({
     {
       path: '/theater-detail/:id',
       component: TheaterDetail
+    },
+    {
+      path: '/select-seat/:id',
+      component: SelectSeat
     },
     {
       path: '*',

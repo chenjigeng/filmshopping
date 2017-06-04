@@ -99,6 +99,9 @@ a {
 .fr {
   float: right;
 }
+.clear {
+  clear: both
+}
 .tr {
   text-align: right;
 }

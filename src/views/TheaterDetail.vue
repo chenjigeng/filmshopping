@@ -21,9 +21,14 @@
     .movie-list
       p.font8.bold.tl 影院同期热播电影
       el-row.movie-list
-        el-col.movie-item(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item"
-          v-bind:class="index < 2 ? 'bg-black' : '' ")
+        el-col.movie-item.bg-black(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item")
           img(src='../assets/poster (1).jpg')
+    .select-list
+      .s-item.mb-20(v-for='item in 5' v-bind:key='item')
+        span.font-10.bold.fl 9:00 - 11:00
+        el-button.font-10.s-btn.fr SELECT SEAT
+        .clear
+
 </template>
 
 <script>
@@ -87,9 +92,7 @@ $bg-color: #fba214
       display: inline-block
   .movie-list
     width: 1000px
-    height: 200px
-    margin: 0 auto
-    display: flex
+    margin: 10px auto
     .movie-item
       height: 200px
       box-sizing: border-box
@@ -99,8 +102,17 @@ $bg-color: #fba214
       img
         width: 98px
         height: 138px
+  .select-list
+    width: 1000px
+    margin: 0 auto
+    .s-item
+      .s-btn
+        background-color: black
+        color: $bg-color
+        border: 0
 
 .select-header
+  z-index: 1
   position: absolute
   top: 20px
   right: 60px
