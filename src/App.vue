@@ -5,11 +5,13 @@
     <div class='main-content'>
       <router-view></router-view>
     </div>
+    <LRdialog></LRdialog>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Nav'
+import LRdialog from '@/components/LRdialog'
 export default {
   data () {
     return {
@@ -18,7 +20,8 @@ export default {
   },
   name: 'app',
   components: {
-    Navbar
+    Navbar,
+    LRdialog
   }
 }
 </script>

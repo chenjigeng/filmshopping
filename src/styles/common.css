@@ -1,0 +1,14 @@
+.lr-diglog .el-dialog__body {
+  padding-top: 10px;
+}
+
+.lr-diglog .el-dialog {
+  width: 450px;
+}
+
+.el-form label {
+  /*text-align: left*/
+}
+button.row {
+  width: 100%
+}
