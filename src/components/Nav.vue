@@ -3,7 +3,7 @@
   el-menu(theme='dark' class="el-menu-demo" mode="horizontal" v-bind:default-active="activeItem" @select="handleSelect" router)
     el-menu-item(index="/home") 主页
     el-menu-item(index="/123") 电影
-    el-menu-item(index='/threat') 影院
+    el-menu-item(index='/theater-detail/1') 影院
     el-menu-item(index='/login').fr 登录
     el-menu-item(index='/order').fr 订单
     el-menu-item(index='/order' ref='logo').logo

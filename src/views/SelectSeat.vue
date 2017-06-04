@@ -9,7 +9,14 @@
         div
       el-col.apply-btn-container(v-bind:span='6')
         el-button.apply-btn.font-10.bold 点我申请约影
-    .seats.bg-white
+    .seats.bg-white.p-30
+      .left.bg-black
+        img(src="../assets/star1.png" v-for='item in 24' v-bind:key='item')
+      .middle
+        img(src="../assets/star1.png" v-for='item in 66' v-bind:key='item')
+      .right.bg-black
+        img(src="../assets/star1.png" v-for='item in 24' v-bind:key='item')
+
     p.leave-msg(v-bind:class="l_msg_active ? 'show' : 'hide' ") 留言阿斯达敖德萨所多阿斯达阿斯达按时啊啊
     el-button.buy-btn.font-12.bold BUY
 
@@ -56,9 +63,23 @@ $bg-color: #fba214
         color: $bg-color
         border: 0
   .seats
+    display: flex
     width: 1000px
     height: 400px
     margin: 10px auto
+    img
+      width: 30px
+      margin: 2.5px 2px
+    .left
+      width: 140px
+      height: 100%
+    .middle
+      width: 400px
+      height: 100%
+    .right
+      width: 140px
+      height: 100%
+
   .buy-btn
     background-color: black
     color: $bg-color

@@ -26,7 +26,7 @@
     .select-list
       .s-item.mb-20(v-for='item in 5' v-bind:key='item')
         span.font-10.bold.fl 9:00 - 11:00
-        el-button.font-10.s-btn.fr SELECT SEAT
+        el-button.font-10.s-btn.fr(@click='clickSelectBtn') SELECT SEAT
         .clear
 </template>
 
@@ -36,6 +36,11 @@ export default {
   data () {
     return {
       myTheme: 'light'
+    }
+  },
+  methods: {
+    clickSelectBtn: function () {
+      this.$router.push({ path: '/select-seat/1' })
     }
   }
 }

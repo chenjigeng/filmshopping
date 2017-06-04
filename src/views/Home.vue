@@ -16,7 +16,7 @@
       .movie-content.bg-black
         .select-header
           span.font6.white SELECT MOVIE
-        img(src='../assets/index.jpg' alt="约影")
+        img(src='../assets/index.jpg' alt="约影" @click='clickMoreBtn')
       .movie-desc
         span#span1.font1 美女与野兽
         span#span2.font3 评分
@@ -26,7 +26,7 @@
           img(src="../assets/s1.png" alt="约影")
           span.font5.mg-hor-5.white xx
           span.font4 赞
-        el-button.more-btn.font6 MORE
+        el-button.more-btn.font6(@click='clickMoreBtn') MORE
     .carousel-container
       .c-title.white.bg-black
         .tl.font7 HOT
@@ -34,7 +34,7 @@
       el-row.movie-list
         el-col.movie-item(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item"
           v-bind:class="index < 2 ? 'bg-black' : '' ")
-          img(src='../assets/poster.jpg')
+            img(src='../assets/poster.jpg')
 
     .rank-container
       .left
@@ -64,7 +64,7 @@
               p.font4.tr localtion:xxxxxxxxxxx
               p.font4.tr tel:xxxxxxxxxxx
             el-col(v-bind:span="4")
-              el-button.font6 BUY
+              el-button.font6(@click='clickBuyBtn') BUY
           el-row.item
             el-col(v-bind:span="8")
               span.font2 1
@@ -75,7 +75,7 @@
               p.font4.tr localtion:xxxxxxxxxxx
               p.font4.tr tel:xxxxxxxxxxx
             el-col(v-bind:span="4")
-              el-button.font6 BUY
+              el-button.font6(@click='clickBuyBtn') BUY
   footer
 
 </template>
@@ -105,7 +105,16 @@ export default {
         label: '北京烤鸭'
       }]
     }
+  },
+  methods: {
+    clickMoreBtn: function () {
+      this.$router.push({ path: '/movie-detail/1' })
+    },
+    clickBuyBtn: function () {
+      this.$router.push({ path: '/theater-detail/1' })
+    }
   }
+
 }
 </script>
 
