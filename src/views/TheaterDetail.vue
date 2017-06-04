@@ -90,15 +90,15 @@ $bg-color: #fba214
     height: 200px
     margin: 0 auto
     display: flex
-      .movie-item
-        height: 200px
-        box-sizing: border-box
-        display: flex
-        align-items: center
-        justify-content: center
-        img
-          width: 98px
-          height: 138px
+    .movie-item
+      height: 200px
+      box-sizing: border-box
+      display: flex
+      align-items: center
+      justify-content: center
+      img
+        width: 98px
+        height: 138px
 
 .select-header
   position: absolute
