@@ -1,5 +1,8 @@
 <template lang='jade'>
+
+
 .home
+  .tri
   header
     img.home-header-img(src="../assets/yue1.png" alt="约影")
     strong 一个可以约影的网站
@@ -8,8 +11,9 @@
       p#p1 DO YOU WANT
       P#p2 A FREE TICKET?
     .movie-detail
-      .side-bar   
-      .movie-content
+      .side-bar  
+        img(src='../assets/sidebar1.png') 
+      .movie-content.bg-black
         .select-header
           span.font6.white SELECT MOVIE
 
@@ -24,17 +28,17 @@
           span.font5.mg-hor-5.white xx
           span.font4 赞
         el-button.more-btn.font6 MORE
-      .fix
 
     .carousel-container
-      .c-title.white
-        .text-lf.font7 HOT
-        .text-rt.font7 MOVIE
+      .c-title.white.bg-black
+        .tl.font7 HOT
+        .tr.font7 MOVIE
       //- el-carousel(height="160px")
       //-   el-carousel-item
       //-     h3 test3
       el-row.movie-list
-        el-col(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item" v-bind:class="index !== 5 ? 'mg-movie-item' : '' ").movie-item
+        el-col.movie-item(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item"
+          v-bind:class="index < 2 ? 'bg-black' : '' ")
           img(src='../assets/poster (1).jpg')
 
 
@@ -69,9 +73,9 @@
               div
                 img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
             el-col(v-bind:span="12")
-              p.font3.text-lf THEATER NAME
-              p.font4.text-rt localtion:xxxxxxxxxxx
-              p.font4.text-rt tel:xxxxxxxxxxx
+              p.font3.tl THEATER NAME
+              p.font4.tr localtion:xxxxxxxxxxx
+              p.font4.tr tel:xxxxxxxxxxx
             el-col(v-bind:span="4")
               el-button.font6 BUY
           el-row.item
@@ -80,9 +84,9 @@
               div
                 img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
             el-col(v-bind:span="12")
-              p.font3.text-lf THEATER NAME
-              p.font4.text-rt localtion:xxxxxxxxxxx
-              p.font4.text-rt tel:xxxxxxxxxxx
+              p.font3.tl THEATER NAME
+              p.font4.tr localtion:xxxxxxxxxxx
+              p.font4.tr tel:xxxxxxxxxxx
             el-col(v-bind:span="4")
               el-button.font6 BUY
 
@@ -96,7 +100,6 @@
 export default {
   name: 'Home',
   created () {
-    console.log('http', this.$http)
   },
   data () {
     return {
@@ -153,6 +156,7 @@ export default {
           width: 440px
           height: 625px
       .movie-desc
+        flex: 1
         min-width: 500px
         position: relative
         padding-top: 15px
@@ -167,23 +171,22 @@ export default {
           left: 100px
           top: 80px
         #span4
-          right: 0
+          right: 20px
           top: 90px
         #span5
-          right: 0
+          right: 20px
           top: 140px
           img
             width: 20px
         .more-btn
           width: 110px
-          right: 0
+          right: 20px
           bottom: 25px
           color: #fcdf32
           background-color: black
           border: 0
           padding: 5px
-      .fix
-        flex: 1
+
 
     .carousel-container
       height: 160px
@@ -199,17 +202,17 @@ export default {
         float: left
         width: 750px
         height: 160px
-        box-sizing: border-box
         border: 1px solid black
-        padding: 10px 12px
+        display: flex
 
         .movie-item
-          height: 138px
-          width: 100px
+          height: 158px
           box-sizing: border-box
-          border: 1px solid black
+          display: flex
+          align-items: center
+          justify-content: center
           img
-            width: 100px
+            width: 98px
             height: 138px
 
     .rank-container
@@ -217,8 +220,9 @@ export default {
       display: flex
       flex-flow: row
       height: 500px
-      margin-top: 20px
       .left
+        background-image: url(../assets/tri.png)
+        background-size: 500px 500px
         .area
           display: flex
           flex-flow: row
@@ -287,31 +291,30 @@ export default {
 .font8
   font-size: 44px
   font-weight: bold
-.white
-  color: white
 .pad-t-20
   padding-top: 20px
 .mg-hor-5
   margin: 0 5px
 .mg-rt-50
   margin-right: 50px
-.mg-movie-item
-  margin-right: 24px
-.text-lf
-  text-align: left
-.text-rt
-  text-align: right
+.mg-movie-item-rt
+  margin-right: 21.43px
+.mg-movie-item-lf
+  margin-left: 21.43px
+
 .select-header
   width: 200px
-  height: 25px
+  padding: 5px
   border-top-right-radius: 8px
   border-bottom-right-radius: 8px
   background-color: #666666
   font-weight: bold
 .side-bar
   min-width: 60px
-  .dia-img
-    img
-      width: 60px
+  background-color: black
+  img 
+    width: 60px
+    height: 450px
+
 </style>
 

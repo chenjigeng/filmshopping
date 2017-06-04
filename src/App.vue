@@ -30,7 +30,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  background-color: #e3edcd;
+  background-color: #fba214;
 }
   
 #app {
@@ -82,6 +82,17 @@ a {
     margin-top: 5px * $i;
   }
 }
+
+@for $i from 1 through 40 {
+  .font-#{$i} {
+    font-size: 2px * $i;
+  }
+}
+
+.bold {
+  font-weight: bold
+}
+
 .fl {
   float: left;
 }
@@ -96,5 +107,31 @@ a {
 }
 .tc {
   text-align: center;
+}
+
+.white {
+  color: white;
+}
+.black {
+  color: black;
+}
+.bg-white {
+  background-color: white;
+}
+.bg-black {
+  background-color: black;
+}
+
+.side-bar {
+  width: 60px;
+  img {
+    width: 60px;
+    height: 450px;
+  }
+}
+.rank-stars {
+  img {
+    width: 20px;
+  }
 }
 </style>
