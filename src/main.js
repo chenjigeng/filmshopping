@@ -20,7 +20,24 @@ var app = new Vue({
   store
 })
 
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  console.log(from)
+  next()
+})
+console.log(VueResource)
+console.log(app)
 router.onReady(() => {
-  app.$mount('#app')
+  app.$http.get('/api/user/userinfo')
+    .then(response => {
+      console.log(response)
+      let payload = response.body
+      payload.login = true
+      app.$store.commit('changeUserInfo', payload)
+      app.$mount('#app')
+    }, response => {
+      sessionStorage.login = false
+      app.$mount('#app')
+    })
 })
 export default app

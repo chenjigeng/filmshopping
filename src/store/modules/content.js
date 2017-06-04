@@ -1,7 +1,13 @@
 const content = {
   state: {
     count: 0,
-    dialogVisible: false
+    dialogVisible: false,
+    userinfo: {
+      phone: '',
+      username: '',
+      gender: '',
+      login: false
+    }
   },
   mutations: {
     increment (state, payload) {
@@ -9,6 +15,9 @@ const content = {
     },
     toggleDiglog (state) {
       state.dialogVisible = !state.dialogVisible
+    },
+    changeUserInfo (state, payload) {
+      state.userinfo = Object.assign(state.userinfo, payload)
     }
   },
   getters: {
@@ -17,6 +26,9 @@ const content = {
     },
     getdialogVisible (state) {
       return state.dialogVisible
+    },
+    getUserInfo (state) {
+      return state.userinfo
     }
   },
   actions: {
