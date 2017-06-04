@@ -84,7 +84,7 @@
 export default {
   name: 'Home',
   created () {
-    this.$http.get('http://172.18.68.235:48403/movie/hotmovies', {'movieIndex': 0})
+    this.$http.get('api/movie/hotmovies/1')
       .then((resp) => {
         console.log('data, resp', resp)
       })
