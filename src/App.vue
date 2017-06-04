@@ -27,7 +27,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  background-color: green;
+  background-color: #e3edcd;
 }
   
 #app {
