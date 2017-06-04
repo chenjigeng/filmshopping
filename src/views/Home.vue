@@ -84,6 +84,10 @@
 export default {
   name: 'Home',
   created () {
+    this.$http.get('http://172.18.68.235:48403/movie/hotmovies', {'movieIndex': 0})
+      .then((resp) => {
+        console.log('data, resp', resp)
+      })
   },
   data () {
     return {
@@ -224,7 +228,7 @@ export default {
       width: 1000px
       margin: 0 auto
       .left
-        background-image: url(../assets/tri.png)
+        background-image: url(../assets/tri.jpg)
         background-size: 500px 500px
         .area
           display: flex
