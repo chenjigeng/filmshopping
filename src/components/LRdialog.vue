@@ -54,6 +54,13 @@ export default {
     }
   },
   data () {
+    // var validatePhone = (rule, value, callback) => {
+    //   if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(value))) {
+    //     callback(new Error('请输入正确的手机号码'))
+    //   } else {
+    //     callback()
+    //   }
+    // }
     return {
       activeName: 'login',
       loginForm: {
@@ -77,6 +84,7 @@ export default {
       },
       registRules: {
         phone: [
+          // {validator: validatePhone, trigger: 'blur'},
           {required: true, message: '请输入手机号码', trigger: 'blur'}
         ],
         password: [
@@ -99,7 +107,7 @@ export default {
       console.log(this.$refs.login)
       this.$refs.login.validate((valid) => {
         if (valid) {
-          this.$http.post('api/user/login', {
+          this.$http.post('/api/user/login', {
             phone: this.loginForm.username,
             password: this.loginForm.password
           }, {
@@ -124,7 +132,6 @@ export default {
             })
           })
         } else {
-          alert('err')
           return false
         }
       })
@@ -132,7 +139,7 @@ export default {
     regist () {
       this.$refs.regist.validate((valid) => {
         if (valid) {
-          this.$http.post('api/user/register', {
+          this.$http.post('/api/user/register', {
             username: this.registForm.nickname,
             password: this.registForm.password,
             gender: this.registForm.gender,
@@ -166,7 +173,6 @@ export default {
             })
           })
         } else {
-          alert('err')
           return false
         }
       })
@@ -186,10 +192,30 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 
-.el-dialog__body {
-  display: none
+.lr-diglog {
+  .el-tabs__item.is-active {
+    color: #fba214
+  }
+  .el-dialog {
+    padding: 20px;
+    padding-bottom: 40px;
+  }
+  .el-dialog__body {
+    display: none
+  }
+  button {
+    background: #fba214;
+    height: 45px;
+  }
+  .el-tabs__active-bar {
+    background-color: #fba214
+  }
+  .el-button--primary {
+    background: #fba214
+  }
 }
+
 </style>
 

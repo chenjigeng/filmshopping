@@ -9,7 +9,8 @@ const content = {
     },
     dialog: {
       YDialog: false,
-      LRDialog: false
+      LRDialog: false,
+      OrderDetail: false
     }
   },
   mutations: {
@@ -22,6 +23,8 @@ const content = {
         state.dialog.LRDialog = !state.dialog.LRDialog
       } else if (payload === 'Y') {
         state.dialog.YDialog = !state.dialog.YDialog
+      } else if (payload === 'OrderDetail') {
+        state.dialog.OrderDetail = !state.dialog.OrderDetail
       }
     },
     changeUserInfo (state, payload) {
@@ -40,6 +43,9 @@ const content = {
     },
     getUserInfo (state) {
       return state.userinfo
+    },
+    getOrderDetailDialog (state) {
+      return state.dialog.OrderDetail
     }
   },
   actions: {

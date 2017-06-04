@@ -7,22 +7,13 @@
     :before-close="handleClose"
     :show-close='false'
   >
-    <el-input 
-      class='message mb-20'
-      v-model='message'
-      type='textarea'
-      resize='none'
-      :maxlength='100'
-      placeholder='约影留言能够提高约影成功率哦！O(∩_∩)O~~'
-    ></el-input>
-    <div>
-      <label class='mr-15'>请留下您的联系方式:</label>
-      <el-input v-model='phone' class='phone' ></el-input>
-    </div>  
-    <p class='tips'>
-      PS：申请约影后，选择两个连续空位的左侧空位，系统将自动锁定右侧空位为待约影位
-    </p>
-    <el-button class='submit-btn' @click='submit'>APPLY</el-button>
+    <p class='status'>支付成功</p>
+    <p class='movive-name'>神奇女侠</p>
+    <p class='time'>6月5号 21:30-23:50</p>
+    <p class='location'>超级英雄电影院</p>
+    <p class='location'>5排6座</p>
+    <p></p>
+    <el-btn>OK</el-btn>
   </el-dialog>
 </div>
 </template>
@@ -32,7 +23,7 @@ export default {
   name: 'Home',
   computed: {
     dialogVisible () {
-      return this.$store.getters.getYDialog
+      return this.$store.getters.getOrderDetailDialog
     }
   },
   data () {
@@ -43,10 +34,10 @@ export default {
   },
   methods: {
     toggleDialog () {
-      this.$store.commit('toggleDiglog', 'Y')
+      this.$store.commit('toggleDiglog', 'OrderDetail')
     },
     handleClose (action, instance, done) {
-      this.$store.commit('toggleDiglog', 'Y')
+      this.$store.commit('toggleDiglog', 'OrderDetail')
     },
     submit () {
       alert('TODO')
@@ -89,7 +80,6 @@ export default {
   .tips {
     color: black
   }
-
 }
 
 </style>

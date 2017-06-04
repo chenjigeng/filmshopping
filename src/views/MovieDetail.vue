@@ -23,7 +23,7 @@ el-row.movie-detail
         span.font-18.bold.white 9.8
       div.rank-stars
         img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
-    el-button.buy-btn.bg-black.white.font-10.bold BUY
+    el-button.buy-btn.bg-black.white.font-10.bold(@click='gotoMoive') BUY
 
 
 </template>
@@ -32,8 +32,15 @@ el-row.movie-detail
 export default {
   name: 'MovieDetail',
   data () {
+    console.log(this.$route)
+    console.log(this.$router)
     return {
       myTheme: 'light'
+    }
+  },
+  methods: {
+    gotoMoive () {
+      this.$router.push(`/theater-detail/${this.$route.params.id}`)
     }
   }
 }
