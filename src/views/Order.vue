@@ -1,9 +1,10 @@
 <template lang='jade'>
 .order.tl
   header.m-20
-    img(src='../assets/boy.png')
+    img(v-if='info.gender === false' src='../assets/boy.png')
+    img(v-if='info.gender === true' src='../assets/girl.png')
     span.ml-20 昵称:
-    span.ml-10 小六六
+    span.ml-10 {{ info.username }}
   main
     .card-list
       span(v-for='n in 10')
@@ -15,6 +16,11 @@
 import card from '@/components/ordercard'
 export default {
   name: 'order',
+  computed: {
+    info () {
+      return this.$store.getters.getUserInfo
+    }
+  },
   data () {
     return {
       myTheme: 'light'

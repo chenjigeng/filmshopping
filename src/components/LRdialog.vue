@@ -16,7 +16,6 @@
             <el-form-item prop='password' label='密码'>
               <el-input type='password' v-model='loginForm.password' placeholder='请输入密码'></el-input>
             </el-form-item>
-            <el-checkbox v-model='loginForm.autoLogin' class='mb-20'>下次自动登录</el-checkbox>
             <el-button type='primary' class='row' @click='login'>登录</el-button>
           </el-form> 
         </el-tab-pane>
@@ -51,17 +50,15 @@ export default {
   name: 'Home',
   computed: {
     dialogVisible () {
-      return this.$store.getters.getdialogVisible
+      return this.$store.getters.getLRDialog
     }
   },
   data () {
-    console.log(this)
     return {
       activeName: 'login',
       loginForm: {
         username: '',
-        password: '',
-        autoLogin: false
+        password: ''
       },
       registForm: {
         nickname: '',
@@ -117,7 +114,7 @@ export default {
                 type: 'success',
                 message: '登陆成功'
               })
-              this.$store.commit('toggleDiglog')
+              this.$store.commit('toggleDiglog', 'LR')
             }
             console.log(response)
           }, response => {
@@ -152,7 +149,7 @@ export default {
               payload.login = true
               this.$store.commit('changeUserInfo', payload)
             }
-            this.$store.commit('toggleDiglog')
+            this.$store.commit('toggleDiglog', 'LR')
           }, (response) => {
             console.log(response)
             this.$message({
@@ -175,10 +172,10 @@ export default {
       })
     },
     toggleDialog () {
-      this.$store.commit('toggleDiglog')
+      this.$store.commit('toggleDiglog', 'LR')
     },
     handleClose (action, instance, done) {
-      this.$store.commit('toggleDiglog')
+      this.$store.commit('toggleDiglog', 'LR')
       // this.$confirm('确认关闭？')
       //   .then(_ => {
       //     done()
