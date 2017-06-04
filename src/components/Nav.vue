@@ -4,9 +4,11 @@
     el-menu-item(index="/home") 主页
     el-menu-item(index="/123") 电影
     el-menu-item(index='/theater-detail/1') 影院
-    el-menu-item(index='/login').fr 登录
+    el-menu-item(index='' @click='logout' v-if='userinfo.login').fr 退出
+    el-menu-item(index='' v-if='userinfo.login').fr {{ userinfo.phone }}
+    el-menu-item(@click='login' index='' v-if='!userinfo.login').fr 登录
     el-menu-item(index='/order').fr 订单
-    el-menu-item(index='/order' ref='logo').logo
+    el-menu-item(index='' ref='logo').logo
       img(src='../assets/yue1.png')
   
 </template>
@@ -14,15 +16,22 @@
 <script>
 export default {
   name: 'home',
+  computed: {
+    userinfo () {
+      console.log(this.$store)
+      return this.$store.getters.getUserInfo
+    }
+  },
   mounted () {
-    // if (this.$route.matched.length > 0) {
-    //   if (this.$route.matched[0].path === '/home') {
-    //     this.$refs.logo.$el.style.display = 'none'
-    //   } else {
-    //     this.$refs.logo.$el.style.display = 'block'
-    //   }
-    //   this.activeItem = this.$route.matched[0].path
-    // }
+    console.log(localStorage)
+    if (this.$route.matched.length > 0) {
+      if (this.$route.matched[0].path === '/home') {
+        this.$refs.logo.$el.style.display = 'none'
+      } else {
+        this.$refs.logo.$el.style.display = 'block'
+      }
+      this.activeItem = this.$route.matched[0].path
+    }
   },
   data () {
     return {
@@ -30,7 +39,36 @@ export default {
       activeItem: '/home'
     }
   },
+  beforeRouteEnter (to, from, next) {
+    setTimeout(function () {
+      console.log('hhhh')
+      next()
+    }, 3000)
+  },
   methods: {
+    logout () {
+      this.$http.get('/api/user/logout')
+        .then(response => {
+          console.log(response)
+          if (response.ok) {
+            this.$store.commit('changeUserInfo', {login: false})
+          } else {
+            this.$message({
+              type: 'error',
+              message: '退出失败'
+            })
+          }
+        }, response => {
+          this.$message({
+            type: 'error',
+            message: '退出失败'
+          })
+        })
+    },
+    login () {
+      console.log(this.$store)
+      this.$store.commit('toggleDiglog')
+    },
     handleSelect (key, keyPath) {
       console.log(key, keyPath)
       if (key === '/home') {

@@ -119,7 +119,7 @@ a {
   color: black;
 }
 .bg-white {
-  background-color: white;
+  background-color: white !important;
 }
 .bg-black {
   background-color: black;
