@@ -1,20 +1,28 @@
 const content = {
   state: {
     count: 0,
-    dialogVisible: false,
     userinfo: {
       phone: '',
       username: '',
       gender: '',
       login: false
+    },
+    dialog: {
+      YDialog: false,
+      LRDialog: false
     }
   },
   mutations: {
     increment (state, payload) {
       state.count = state.count + payload.count
     },
-    toggleDiglog (state) {
-      state.dialogVisible = !state.dialogVisible
+    toggleDiglog (state, payload) {
+      console.log(payload)
+      if (payload === 'LR') {
+        state.dialog.LRDialog = !state.dialog.LRDialog
+      } else if (payload === 'Y') {
+        state.dialog.YDialog = !state.dialog.YDialog
+      }
     },
     changeUserInfo (state, payload) {
       state.userinfo = Object.assign(state.userinfo, payload)
@@ -24,8 +32,11 @@ const content = {
     getCount (state) {
       return state.count + 1
     },
-    getdialogVisible (state) {
-      return state.dialogVisible
+    getLRDialog (state) {
+      return state.dialog.LRDialog
+    },
+    getYDialog (state) {
+      return state.dialog.YDialog
     },
     getUserInfo (state) {
       return state.userinfo

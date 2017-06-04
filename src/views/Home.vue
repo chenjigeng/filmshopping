@@ -127,7 +127,7 @@ export default {
   position: absolute
   top: 0
   left: 50%
-  margin-left: -10px
+  margin-left: -25px
 .home
   min-width: 1000px
   header
