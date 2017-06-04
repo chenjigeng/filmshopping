@@ -16,7 +16,6 @@
       .movie-content.bg-black
         .select-header
           span.font6.white SELECT MOVIE
-
         img(src='../assets/index.jpg' alt="约影")
       .movie-desc
         span#span1.font1 美女与野兽
@@ -32,21 +31,10 @@
       .c-title.white.bg-black
         .tl.font7 HOT
         .tr.font7 MOVIE
-      //- el-carousel(height="160px")
-      //-   el-carousel-item
-      //-     h3 test3''
       el-row.movie-list
         el-col.movie-item(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item"
           v-bind:class="index < 2 ? 'bg-black' : '' ")
           img(src='../assets/poster.jpg')
-
-
-
-    //-   <el-carousel height="150px">
-    //-   <el-carousel-item v-for="item in 4" :key="item">
-    //-     <h3>{{ item }}</h3>
-    //-   </el-carousel-item>
-    //- </el-carousel>
 
     .rank-container
       .left
@@ -61,7 +49,7 @@
               el-select(v-model="district" placeholder="请选择")
                 el-option(v-for="item in districtOptions" v-bind:key="item.value" v-bind:label="item.label" v-bind:value="item.value")
         .rank-info
-          span.font8.mg-rt-50.pad-t-20 RANK
+          span.font8.mg-rt-50.pad-t-20.white RANK
           span.font8.mg-rt-50.pad-t-20 BY
           img(src="../assets/star2.png")
       .right
@@ -88,9 +76,6 @@
               p.font4.tr tel:xxxxxxxxxxx
             el-col(v-bind:span="4")
               el-button.font6 BUY
-
-
-
   footer
 
 </template>
@@ -154,15 +139,16 @@ export default {
       display: flex
       flex-flow:row
       height: 660px
+      width: 1000px
+      margin: 0 auto
       
       .movie-content
-        min-width: 440px
+        width: 440px
         img
           width: 440px
           height: 625px
       .movie-desc
-        flex: 1
-        min-width: 500px
+        width: 500px
         position: relative
         padding-top: 15px
         &>span, &>button
@@ -192,9 +178,10 @@ export default {
           border: 0
           padding: 5px
 
-
     .carousel-container
       height: 160px
+      width: 1000px
+      margin: 0 auto
       .c-title
         float: left
         display: inline-block
@@ -225,17 +212,19 @@ export default {
       display: flex
       flex-flow: row
       height: 500px
+      width: 1000px
+      margin: 0 auto
       .left
         background-image: url(../assets/tri.png)
         background-size: 500px 500px
         .area
           display: flex
           flex-flow: row
-          height: 350px
+          height: 300px
           .area-content
             width: 440px
             .district-select
-              padding-top: 50px
+              padding-top: 25px
               text-align: left
               img
                 padding-left: 50px
@@ -249,7 +238,8 @@ export default {
             width: 80px
             height: 80px
       .right
-        min-width: 500px
+        width: 500px
+        padding-top: 50px
         .theaters
           box-sizing: border-box
           width: 500px
@@ -258,7 +248,6 @@ export default {
           .item
             border-top: 2px solid black
             margin-bottom: 15px
-            // border-radius: 4px
             .el-col
               img
                 width: 15px

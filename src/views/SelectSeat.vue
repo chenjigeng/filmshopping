@@ -10,6 +10,7 @@
       el-col.apply-btn-container(v-bind:span='6')
         el-button.apply-btn.font-10.bold 点我申请约影
     .seats.bg-white
+    p.leave-msg(v-bind:class="l_msg_active ? 'show' : 'hide' ") 留言阿斯达敖德萨所多阿斯达阿斯达按时啊啊
     el-button.buy-btn.font-12.bold BUY
 
 </template>
@@ -19,7 +20,8 @@
     name: 'SelectSeat',
     data () {
       return {
-        myTheme: 'light'
+        myTheme: 'light',
+        l_msg_active: true
       }
     }
   }
@@ -61,5 +63,11 @@ $bg-color: #fba214
     background-color: black
     color: $bg-color
     border: 0
+  .leave-msg
+
+.show
+  visibility: visible
+.hide
+  visibility: hidden
 </style>
 
