@@ -49,7 +49,7 @@ export default {
         loading.close()
         this.loading = false
         this.movies = response.body.movies
-        this.schedule = response.body.movies[0].scheduleBeans
+        this.schedule = response.body.movies[0].schedules
         this.theater = response.body
         this.theater.rank /= 2
       })
@@ -58,7 +58,7 @@ export default {
     selectMovie (index, e) {
       console.log(index)
       console.log(e)
-      this.schedule = this.movies[index].scheduleBeans
+      this.schedule = this.movies[index].schedules
       this.imgIndex = index
     },
     clickSelectBtn: function (id) {

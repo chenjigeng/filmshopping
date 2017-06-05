@@ -1,6 +1,5 @@
 const content = {
   state: {
-    count: 0,
     userinfo: {
       phone: '',
       username: '',
@@ -15,9 +14,6 @@ const content = {
     }
   },
   mutations: {
-    increment (state, payload) {
-      state.count = state.count + payload.count
-    },
     toggleDiglog (state, payload) {
       console.log(payload)
       if (payload === 'LR') {
@@ -35,9 +31,6 @@ const content = {
     }
   },
   getters: {
-    getCount (state) {
-      return state.count + 1
-    },
     getLRDialog (state) {
       return state.dialog.LRDialog
     },
@@ -55,12 +48,6 @@ const content = {
     }
   },
   actions: {
-    doubleCount (context, payload) {
-      setTimeout(function () {
-        context.state.count += payload.count
-        context.commit('increment', payload)
-      }, 1000)
-    }
   }
 }
 

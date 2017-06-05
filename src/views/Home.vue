@@ -76,7 +76,6 @@
 export default {
   name: 'Home',
   beforeRouteEnter (to, from, next) {
-    console.log(to.hash)
     if (to.hash && to.hash === '#footer') {
       next(vm => {
         vm.footer = true
@@ -97,7 +96,6 @@ export default {
         this.cinemas = response[1].body
         this.loading = false
         loading.close()
-        console.log(this.cinemas)
       })
   },
   updated () {
