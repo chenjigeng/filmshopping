@@ -1,42 +1,63 @@
 <template lang='jade'>
-el-row.movie-detail
-  el-col.left(v-bind:span="12")
-    .img-container
-      img(src="../assets/poster2.jpg")
-  el-col.right(v-bind:span="12")
-    .select-header
-      span.font-10.bold.white SELECT MOVIE
-    .side-bar  
-        img(src='../assets/sidebar2.png')
-    .movie-info.tl.p-10
-      p.font-18.bold.mt-15.mb-5 神奇女侠
-      p.font-12.mt-5.mb-30 Wonder Woman
-      p.font-7 type 动作 阿斯达所按时的按时
-      p.font-7 国家/时间
-      p.font-7 上映时间
-    .movie-desc.font-7.bg-white.ml-10
-      span.tl 你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。
+div
+  el-row.movie-detail(v-if='!loading')
+    el-col.left(v-bind:span="12")
+      .img-container
+        img(:src="'/static/' + movie.post")
+    el-col.right(v-bind:span="12")
+      .select-header
+        span.font-10.bold.white SELECT MOVIE
+      .side-bar  
+          img(src='../assets/sidebar2.png')
+      .movie-info.tl.p-10
+        p.font-18.bold.mt-15.mb-5 {{ movie.nameCn }}
+        p.font-12.mt-5.mb-30 {{ movie.nameEn }}
+        p.font-7 {{ movie.typeCn }}
+        p.font-7 {{ movie.origin + '/' + movie.duration + '分钟'}}
+        p.font-7 {{ movie.releaseTime + '大陆上映'}}
+      .movie-desc.font-7.bg-white.ml-10
+        span.tl {{ movie.introduction }}
 
-    .movie-rank.tl.pt-25.pl-10
-      p
-        span.font-10.bold.mr-5.fix-rank 评分
-        span.font-18.bold.white 9.8
-      div.rank-stars
-        img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
-    el-button.buy-btn.bg-black.white.font-10.bold(@click='gotoMoive') BUY
+      .movie-rank.tl.pt-25.pl-10
+        p
+          span.font-10.bold.mr-5.fix-rank 评分
+          span.font-18.bold.white {{ movie.rank }}
+        div.rank-stars
+          img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
+      el-button.buy-btn.bg-black.white.font-10.bold(@click='gotoMoive') BUY
 
 
 </template>
 
 <script>
+let types = ['动作', '冒险', '喜剧', '犯罪', '戏剧', '史诗', '惊悚', '音乐剧', '战争', '动画', '色情']
 export default {
   name: 'MovieDetail',
   data () {
-    console.log(this.$route)
-    console.log(this.$router)
     return {
-      myTheme: 'light'
+      movie: null,
+      loading: true
     }
+  },
+  created () {
+    let loading = this.$loading({'fullscreen': true})
+    this.$http.get(`/api/movie/${this.$route.params.id}`)
+      .then(response => {
+        this.loading = false
+        this.movie = response.body
+        let type = this.movie.type
+        let result = ''
+        let mask = 1
+        for (let i = 0; i < 11; i++) {
+          if (type & mask) {
+            result += ',' + types[i]
+          }
+          mask = mask << 1
+        }
+        result = result.substr(1)
+        this.movie.typeCn = result
+        loading.close()
+      })
   },
   methods: {
     gotoMoive () {

@@ -49,7 +49,7 @@
             .district-select
               div
                 img(src="../assets/lo3.png")
-              el-select(v-model="district" placeholder="请选择")
+              el-select(v-model="district" placeholder="请选择" @change='handleSelect')
                 el-option(v-for="item in districtOptions" v-bind:key="item.value" v-bind:label="item.label" v-bind:value="item.value")
         .rank-info
           span.font8.mg-rt-50.pad-t-20.white RANK
@@ -57,28 +57,16 @@
           img(src="../assets/star2.png")
       .right
         .theaters
-          el-row.item
+          el-row.item(v-for='(item,index) in cinemas' v-bind:key='index')
             el-col(v-bind:span="8")
-              span.font2 1
+              span.font2 {{ index }}
               div
-                img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
+                el-rate(v-model='item.rank' disabled allow-half)
             el-col(v-bind:span="12")
-              p.font3.tl THEATER NAME
-              p.font4.tr localtion:xxxxxxxxxxx
-              p.font4.tr tel:xxxxxxxxxxx
+              p.font3.tl {{ item.name }}
+              p.font4.f4-spe 地址: {{ item.address }}
             el-col(v-bind:span="4")
-              el-button.font6(@click='clickBuyBtn') BUY
-          el-row.item
-            el-col(v-bind:span="8")
-              span.font2 1
-              div
-                img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
-            el-col(v-bind:span="12")
-              p.font3.tl THEATER NAME
-              p.font4.tr localtion:xxxxxxxxxxx
-              p.font4.tr tel:xxxxxxxxxxx
-            el-col(v-bind:span="4")
-              el-button.font6(@click='clickBuyBtn') BUY
+              el-button.font6(@click='clickBuyBtn(item.id)') BUY
   footer
 
 </template>
@@ -89,13 +77,16 @@ export default {
   name: 'Home',
   created () {
     let loading = this.$loading({fullscreen: true})
-    console.log(loading)
-    this.$http.get('/api/movie/hotmovies/0')
-      .then((resp) => {
+    Promise.all([this.$http.get('/api/movie/hotmovies/0'), this.$http.get('/api/cinema/location/0')])
+      .then((response) => {
+        for (let i = 0; i < response[0].body.length; i++) {
+          response[1].body[i].rank /= 2
+        }
+        this.movies = response[0].body
+        this.cinemas = response[1].body
         this.loading = false
-        this.movies = resp.body
         loading.close()
-        console.log('data, resp', resp)
+        console.log(this.cinemas)
       })
   },
   data () {
@@ -103,23 +94,15 @@ export default {
       loading: true,
       liked: false,
       movies: [],
+      cinemas: [],
       myTheme: 'light',
-      district: '',
+      district: '0',
       districtOptions: [{
+        value: '0',
+        label: '大学城'
+      }, {
         value: '1',
-        label: '黄金糕'
-      }, {
-        value: '2',
-        label: '双皮奶'
-      }, {
-        value: '3',
-        label: '蚵仔煎'
-      }, {
-        value: '4',
-        label: '龙须面'
-      }, {
-        value: '5',
-        label: '北京烤鸭'
+        label: '华农'
       }]
     }
   },
@@ -136,6 +119,12 @@ export default {
           }
         })
     },
+    handleSelect (value) {
+      this.$http.get(`/api/cinema/location/${value}`)
+        .then(response => {
+          this.cinemas = response.body
+        })
+    },
     gotoMovieDetail (id) {
       this.$router.push(`/movie-detail/${id}`)
     },
@@ -145,8 +134,8 @@ export default {
     clickMoreBtn: function () {
       this.$router.push({ path: '/movie-detail/1' })
     },
-    clickBuyBtn: function () {
-      this.$router.push({ path: '/theater-detail/1' })
+    clickBuyBtn: function (id) {
+      this.$router.push({ path: `/theater-detail/${id}` })
     }
   }
 
@@ -160,6 +149,8 @@ export default {
   left: 50%
   margin-left: -25px
 .home
+  img:hover
+    cursor: pointer
   min-width: 1000px
   header
     .home-header-img
@@ -285,6 +276,8 @@ export default {
         width: 500px
         padding-top: 50px
         .theaters
+          height: 425px
+          overflow: auto
           box-sizing: border-box
           width: 500px
           padding: 12px
@@ -316,9 +309,14 @@ export default {
   font-size: 72px
   font-weight: bold
 .font3
-  font-size: 28px
+  font-size: 20px
 .font4
   font-size: 16px
+.f4-spe
+  text-align: left
+  font-size: 14px
+  font-weight: bold
+  color: black
 .font5
   font-size: 14px
 .font6
