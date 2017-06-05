@@ -7,7 +7,7 @@
     img.home-header-img(src="../assets/yue1.png" alt="约影")
     strong.ml-20 一个可以约影的网站
   .content(v-if='this.loading')
-    h1 hh
+    h1 hhhhh请先等待下
   .content(v-if='!this.loading')
     .desc
       p#p1 DO YOU WANT
@@ -49,7 +49,7 @@
             .district-select
               div
                 img(src="../assets/lo3.png")
-              el-select(v-model="district" placeholder="请选择" @change='handleSelect')
+              el-select(v-model="district" placeholder="请选择" @change='handleSelect').select-pos
                 el-option(v-for="item in districtOptions" v-bind:key="item.value" v-bind:label="item.label" v-bind:value="item.value")
         .rank-info
           span.font8.mg-rt-50.pad-t-20.white RANK
@@ -164,6 +164,8 @@ export default {
   left: 50%
   margin-left: -25px
 .home
+  .select-pos
+    width: 200px
   img:hover
     cursor: pointer
   min-width: 1000px

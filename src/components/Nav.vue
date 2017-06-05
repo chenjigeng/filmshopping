@@ -1,11 +1,12 @@
 <template lang='jade'>
 .nav
-  el-menu(theme='dark' class="el-menu-demo" mode="horizontal" v-bind:default-active="activeItem" @select="handleSelect" router)
+  el-menu(theme='dark' class="yue-nav" mode="horizontal" v-bind:default-active="activeItem" @select="handleSelect" router)
     el-menu-item(index="/home") 主页
     el-menu-item(index="/123") 电影
     el-menu-item(index='/theater-detail/1') 影院
-    el-menu-item(index='' @click='logout' v-if='userinfo.login').fr 退出
-    el-menu-item(index='' v-if='userinfo.login').fr {{ userinfo.phone }}
+    el-submenu(index='' v-if='userinfo.login').fr 
+      template(slot='title') {{ userinfo.username }}
+      el-menu-item(index='' @click='logout' v-if='userinfo.login').fr 退出
     el-menu-item(@click='login' index='' v-if='!userinfo.login').fr 登录
     el-menu-item(index='/order' v-if='userinfo.login').fr 订单
     el-menu-item(index='' ref='logo').logo
@@ -39,7 +40,6 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     setTimeout(function () {
-      console.log('hhhh')
       next()
     }, 3000)
   },
@@ -67,7 +67,6 @@ export default {
     },
     handleSelect (key, keyPath) {
       if (key === '/home') {
-        console.log('123123')
         this.$refs.logo.$el.style.display = 'none'
       } else {
         this.$refs.logo.$el.style.display = 'block'
@@ -89,6 +88,7 @@ h2
   margin-left: -30px;
   img
     height: 60px
-
+  &:hover
+    border-bottom: none
 </style>
 

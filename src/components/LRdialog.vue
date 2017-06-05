@@ -104,7 +104,6 @@ export default {
   },
   methods: {
     login () {
-      console.log(this.$refs.login)
       this.$refs.login.validate((valid) => {
         if (valid) {
           this.$http.post('/api/user/login', {
@@ -124,7 +123,6 @@ export default {
               })
               this.$store.commit('toggleDiglog', 'LR')
             }
-            console.log(response)
           }, response => {
             this.$message({
               type: 'error',
@@ -146,7 +144,6 @@ export default {
             phone: this.registForm.phone
           })
           .then((response) => {
-            console.log(response)
             if (response.ok) {
               this.$message({
                 type: 'success',
@@ -158,15 +155,12 @@ export default {
             }
             this.$store.commit('toggleDiglog', 'LR')
           }, (response) => {
-            console.log(response)
             this.$message({
               type: 'error',
               message: response.bodyText
             })
           })
           .catch((err) => {
-            console.log('err')
-            console.log(err)
             this.$message({
               type: 'error',
               message: err.bodyText
