@@ -18,7 +18,6 @@ export default {
   name: 'order',
   beforeRouteEnter: (to, from, next) => {
     next(vm => {
-      console.log(vm)
       if (!vm.$store.getters.getUserInfo.login) {
         vm.$message({
           type: 'error',

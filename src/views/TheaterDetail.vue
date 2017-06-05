@@ -56,8 +56,6 @@ export default {
   },
   methods: {
     selectMovie (index, e) {
-      console.log(index)
-      console.log(e)
       this.schedule = this.movies[index].schedules
       this.imgIndex = index
     },
