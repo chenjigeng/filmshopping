@@ -18,12 +18,10 @@ export default {
   name: 'home',
   computed: {
     userinfo () {
-      console.log(this.$store)
       return this.$store.getters.getUserInfo
     }
   },
   mounted () {
-    console.log(localStorage)
     if (this.$route.matched.length > 0) {
       if (this.$route.matched[0].path === '/home') {
         this.$refs.logo.$el.style.display = 'none'
@@ -49,7 +47,6 @@ export default {
     logout () {
       this.$http.get('/api/user/logout')
         .then(response => {
-          console.log(response)
           if (response.ok) {
             this.$store.commit('changeUserInfo', {login: false})
           } else {
@@ -66,11 +63,9 @@ export default {
         })
     },
     login () {
-      console.log(this.$store)
       this.$store.commit('toggleDiglog', 'LR')
     },
     handleSelect (key, keyPath) {
-      console.log(key, keyPath)
       if (key === '/home') {
         console.log('123123')
         this.$refs.logo.$el.style.display = 'none'
