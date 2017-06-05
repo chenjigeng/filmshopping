@@ -16,4 +16,7 @@ button.row {
 .invisible {
   display: none
 }
-  
+.el-radio__input.is-checked .el-radio__inner {
+  border-color: #fba214;
+  background: #fba214;
+}

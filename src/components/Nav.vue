@@ -9,6 +9,8 @@
     el-menu-item(@click='login' index='' v-if='!userinfo.login').fr 登录
     el-menu-item(index='/order' v-if='userinfo.login').fr 订单
     el-menu-item(@click='Y' index='').fr Y
+    el-menu-item(@click='OD' index='').fr 订单详情
+    el-menu-item(@click='Pay' index='').fr 支付
     el-menu-item(index='' ref='logo').logo
       img(src='../assets/yue1.png')
   
@@ -47,9 +49,15 @@ export default {
     }, 3000)
   },
   methods: {
+    OD () {
+      this.$store.commit('toggleDiglog', 'OrderDetail')
+    },
     Y () {
       console.log('enter')
       this.$store.commit('toggleDiglog', 'Y')
+    },
+    Pay () {
+      this.$store.commit('toggleDiglog', 'Pay')
     },
     logout () {
       this.$http.get('/api/user/logout')

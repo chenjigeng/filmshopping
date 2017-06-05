@@ -10,7 +10,8 @@ const content = {
     dialog: {
       YDialog: false,
       LRDialog: false,
-      OrderDetail: false
+      OrderDetail: false,
+      Pay: false
     }
   },
   mutations: {
@@ -25,6 +26,8 @@ const content = {
         state.dialog.YDialog = !state.dialog.YDialog
       } else if (payload === 'OrderDetail') {
         state.dialog.OrderDetail = !state.dialog.OrderDetail
+      } else if (payload === 'Pay') {
+        state.dialog.Pay = !state.dialog.Pay
       }
     },
     changeUserInfo (state, payload) {
@@ -46,6 +49,9 @@ const content = {
     },
     getOrderDetailDialog (state) {
       return state.dialog.OrderDetail
+    },
+    getPayDialog (state) {
+      return state.dialog.Pay
     }
   },
   actions: {

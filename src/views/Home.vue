@@ -6,7 +6,9 @@
   header#logo-header
     img.home-header-img(src="../assets/yue1.png" alt="约影")
     strong.ml-20 一个可以约影的网站
-  .content
+  .content(v-if='this.loading')
+    h1 hh
+  .content(v-if='!this.loading')
     .desc
       p#p1 DO YOU WANT
       P#p2 A FREE TICKET?
@@ -16,15 +18,16 @@
       .movie-content.bg-black
         .select-header
           span.font6.white SELECT MOVIE
-        img(src='../assets/index.jpg' alt="约影" @click='clickMoreBtn')
+        img(:src='"/static/" + movies[0].post ' alt="约影" @click='clickMoreBtn')
       .movie-desc
-        span#span1.font1 美女与野兽
+        span#span1.font1 {{ movies[0].nameCn }}
         span#span2.font3 评分
-        span#span3.font2.white 9.2
+        span#span3.font2.white {{ movies[0].rank }}
         span#span4.font5 SHAPE
-        span#span5
-          img(src="../assets/s1.png" alt="约影")
-          span.font5.mg-hor-5.white xx
+        span#span5(@click='like')
+          img(src='../assets/s2.png' v-if='liked')
+          img(src="../assets/s1.png" alt="约影" v-if='!liked')
+          span.font5.mg-hor-5.white {{ movies[0].like }}
           span.font4 赞
         el-button.more-btn.font6(@click='clickMoreBtn') MORE
     .carousel-container
@@ -32,9 +35,9 @@
         .tl.font7 HOT
         .tr.font7 MOVIE
       el-row.movie-list
-        el-col.movie-item(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item"
+        el-col.movie-item(v-bind:span="4" v-for="(item, index) in movies" v-bind:key="item"
           v-bind:class="index < 2 ? 'bg-black' : '' ")
-            img(src='../assets/poster.jpg')
+            img(:src='"/static/" + item.post' @click='gotoMovieDetail(item.id)')
 
     .rank-container
       .left
@@ -81,17 +84,27 @@
 </template>
 
 <script>
+
 export default {
   name: 'Home',
   created () {
-    this.$http.get('api/movie/hotmovies/1')
+    let loading = this.$loading({fullscreen: true})
+    console.log(loading)
+    this.$http.get('/api/movie/hotmovies/0')
       .then((resp) => {
+        this.loading = false
+        this.movies = resp.body
+        loading.close()
         console.log('data, resp', resp)
       })
   },
   data () {
     return {
+      loading: true,
+      liked: false,
+      movies: [],
       myTheme: 'light',
+      district: '',
       districtOptions: [{
         value: '1',
         label: '黄金糕'
@@ -111,6 +124,24 @@ export default {
     }
   },
   methods: {
+    like () {
+      if (this.liked) {
+        return
+      }
+      this.$http.get(`/api/movie/like/${this.movies[0].id}`)
+        .then((response) => {
+          if (response.ok) {
+            this.movies[0] = response.body
+            this.liked = true
+          }
+        })
+    },
+    gotoMovieDetail (id) {
+      this.$router.push(`/movie-detail/${id}`)
+    },
+    fetch: function () {
+      console.log('fetch')
+    },
     clickMoreBtn: function () {
       this.$router.push({ path: '/movie-detail/1' })
     },
