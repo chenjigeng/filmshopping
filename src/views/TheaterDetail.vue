@@ -3,10 +3,10 @@
     .select-header
       span.font-10.bold.white SELECT MOVIE
     .side-bar.bg-white 
-        img(src='../assets/sidebar2.png')
+      img(src='../assets/sidebar2.png')
     .theater-header
       .t-name-container.p-15
-        div.t-name.black.font-20.bold theater name
+        div.t-name.black.font-20.bold
         div.t-info.white.tl.fr.font-8.bold
           p.m-5 location: xxxxxxxxxxxxxxxx
           p.m-5 tel: 111111111111
@@ -20,12 +20,12 @@
           img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
     .movie-list
       p.font8.bold.tl 影院同期热播电影
-      el-row.movie-list
-        el-col.movie-item.bg-black(v-bind:span="4" v-for="(item, index) in 6" v-bind:key="item")
-          img(src='../assets/poster1.jpg')
+      el-row.movie-list(ref='movieItems')
+        el-col.movie-item.bg-color(v-bind:span="4" v-for="(item, index) in movies" v-bind:key="item")
+          img(:src='"/static/" + item.post' @click='selectMovie(index, $event)')
     .select-list
-      .s-item.mb-20(v-for='item in 5' v-bind:key='item')
-        span.font-10.bold.fl 9:00 - 11:00
+      .s-item.mb-20(v-for='item in schedule' v-bind:key='item')
+        span.font-10.bold.fl {{ item.startTime }} - {{ item.endTime }}
         el-button.font-10.s-btn.fr(@click='clickSelectBtn') SELECT SEAT
         .clear
 </template>
@@ -35,12 +35,54 @@ export default {
   name: 'TheaterDetail',
   data () {
     return {
-      myTheme: 'light'
+      movies: [],
+      myTheme: 'light',
+      schedule: []
     }
   },
+  created () {
+    this.$http.get(`/api/cinema/${this.$route.params.id}`)
+      .then(response => {
+        console.log(response)
+      })
+    this.$http.get(`/api/movie/cinema/${this.$route.params.id}`)
+      .then(response => {
+        this.movies = response.body
+        console.log(this.movies)
+        this.$http.post('/api/schedule/scheduleinfo', {
+          cinemaId: this.$route.params.id,
+          movieId: this.movies[0].id
+        }, {
+          emulateJSON: true
+        })
+        .then(response => {
+          console.log(response)
+          this.schedule = response.body
+        })
+      })
+  },
   methods: {
+    selectMovie (index, e) {
+      console.log(index)
+      console.log(e)
+      this.$http.post('/api/schedule/scheduleinfo', {
+        cinemaId: this.$route.params.id,
+        movieId: this.movies[index].id
+      }, {
+        emulateJSON: true
+      })
+      .then(response => {
+        console.log(response)
+        this.schedule = response.body
+        console.log(this.$refs.movieItems)
+      })
+      for (let i = 0; i < this.$refs.movieItems.$el.children.length; i++) {
+        this.$refs.movieItems.$el.children[i].className = this.$refs.movieItems.$el.children[i].className.replace(/ *active/, '')
+      }
+      e.target.parentElement.className += ' active'
+    },
     clickSelectBtn: function () {
-      this.$router.push({ path: '/select-seat/1' })
+      this.$router.push({ path: `/select-seat/${this.$route.params.id}` })
     }
   }
 }
@@ -97,15 +139,20 @@ $bg-color: #fba214
   .movie-list
     width: 1000px
     margin: 10px auto
+    background: #555
     .movie-item
       height: 200px
       box-sizing: border-box
       display: flex
       align-items: center
       justify-content: center
+      background: #555
       img
-        width: 98px
-        height: 138px
+        width: 100px
+        height: 140px
+    .movie-item.active
+      img
+        border: 3px solid #e4c38d
   .select-list
     width: 1000px
     margin: 0 auto

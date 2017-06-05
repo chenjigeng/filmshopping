@@ -67,7 +67,7 @@
               p.font4.f4-spe 地址: {{ item.address }}
             el-col(v-bind:span="4")
               el-button.font6(@click='clickBuyBtn(item.id)') BUY
-  footer
+  footer#footer
 
 </template>
 
@@ -75,6 +75,17 @@
 
 export default {
   name: 'Home',
+  beforeRouteEnter (to, from, next) {
+    console.log(to.hash)
+    if (to.hash && to.hash === '#footer') {
+      next(vm => {
+        vm.footer = true
+        next()
+      })
+    } else {
+      next()
+    }
+  },
   created () {
     let loading = this.$loading({fullscreen: true})
     Promise.all([this.$http.get('/api/movie/hotmovies/0'), this.$http.get('/api/cinema/location/0')])
@@ -89,8 +100,14 @@ export default {
         console.log(this.cinemas)
       })
   },
+  updated () {
+    if (this.footer) {
+      location.href = location.href
+    }
+  },
   data () {
     return {
+      footer: false,
       loading: true,
       liked: false,
       movies: [],
@@ -132,7 +149,7 @@ export default {
       console.log('fetch')
     },
     clickMoreBtn: function () {
-      this.$router.push({ path: '/movie-detail/1' })
+      this.$router.push({ path: `/movie-detail/${this.movies[0].id}` })
     },
     clickBuyBtn: function (id) {
       this.$router.push({ path: `/theater-detail/${id}` })

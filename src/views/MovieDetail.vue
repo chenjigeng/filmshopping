@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     gotoMoive () {
-      this.$router.push(`/theater-detail/${this.$route.params.id}`)
+      this.$router.push('/home#footer')
     }
   }
 }
