@@ -1,30 +1,20 @@
-// var Vue = require('vue')
+var express = require('express')
+var proxy = require('http-proxy-middleware')
+var app = express()
 
-(function () { 'use strict'
-  var createApp = function () {
-    // ---------------------
-    // 开始常用的应用代码
-    // ---------------------
-    // 主要的Vue实例必须返回，并且有一个根节点在id "app"上，这样客户端可以加载它。
-    return new Vue({
-      template: '<div id="app">你已经在这花了 {{ counter }} 秒。</div>',
-      data: {
-        counter: 0
-      },
-      created: function () {
-        var vm = this
-        setInterval(function () {
-          vm.counter += 1
-        }, 1000)
-      }
-    })
-    // -------------------
-    // 结束常用的应用代码
-    // -------------------
+app.use('/api', proxy({
+  target: 'http://119.29.163.132:48403',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/api': ''
   }
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = createApp
-  } else {
-    this.app = createApp()
-  }
-}).call(this)
+}))
+app.use(express.static('dist'))
+
+app.get('*', function (req, res) {
+  res.sendfile('./dist/index.html')
+})
+
+app.listen(80, function () {
+  console.log('连接成功')
+})
