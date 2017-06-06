@@ -25,7 +25,10 @@ export default {
       return this.$store.getters.getSeatInfo
     },
     yueinfo () {
-      return this.$store.getters.yueinfo
+      return this.$store.getters.getYInfo
+    },
+    userInfo () {
+      return this.$store.getters.getUserInfo
     }
   },
   data () {
@@ -42,6 +45,10 @@ export default {
       this.$store.commit('toggleDiglog', 'Pay')
     },
     submit () {
+      if (!this.userInfo.login) {
+        this.$alert('请先登录', '注意')
+        return
+      }
       var promises = this.seatInfo.map(i => {
         if (i !== -1) {
           return this.buyAPI(i)
@@ -56,22 +63,23 @@ export default {
           partnerTicketId: this.seatInfo[1],
           message: this.yueinfo ? this.yueinfo.message : ''
         }
-        console.log('in', params)
         this.$http.post('/api/order/create', params,
           {
             emulateJSON: true
           }).then(resp => {
             this.$message('创建订单成功')
-            console.log('resp', resp)
+            this.$store.commit('toggleUpdateSeats', null)
           }).catch(reason => {
             this.$message({
               type: 'error',
               message: reason
             })
-            console.log('reason', reason)
           })
       }).catch(reason => {
-        console.log('错误: ', reason)
+        this.$message({
+          type: 'error',
+          message: reason
+        })
       })
     },
     buyAPI (id) {

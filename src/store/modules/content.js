@@ -16,7 +16,8 @@ const content = {
       messsage: '',
       phone: ''
     },
-    seatInfo: null
+    seatInfo: null,
+    updateSeats: false
   },
   mutations: {
     toggleDiglog (state, payload) {
@@ -36,10 +37,12 @@ const content = {
     },
     applyY (state, payload) {
       state.yueinfo = payload
-      console.log('yueinfo', state.yueinfo)
     },
     setOrder (state, payload) {
       state.seatInfo = payload
+    },
+    toggleUpdateSeats (state, payload) {
+      state.updateSeats = !state.updateSeats
     }
   },
   getters: {
@@ -63,6 +66,9 @@ const content = {
     },
     getSeatInfo (state) {
       return state.seatInfo
+    },
+    getUpdateSeats (state) {
+      return state.updateSeats
     }
   },
   actions: {

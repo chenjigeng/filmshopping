@@ -56,12 +56,12 @@
         l_msg: null,
         loading: null,
         tickets: null,
-        bindSeatId: null,
-        hasY: false
+        bindSeatId: null
       }
     },
     methods: {
       fetchData: function () {
+        let _loading = this.$loading({fullscreen: true})
         this.loading = true
         this.tickets = null
         this.$http.get('/api/schedule/1')
@@ -70,6 +70,7 @@
             item._status = item.status
           })
           this.loading = false
+          _loading.close()
           this.tickets = resp.data.tickets
         })
       },
@@ -107,10 +108,10 @@
             messsage: '',
             phone: ''
           })
-          this.bindSeatId = null
         } else {
           this.$store.commit('toggleDiglog', 'Y')
         }
+        this.bindSeatId = null
       },
       updateBindSeatId: function (newV, oldV) {
         if (oldV) {
@@ -143,7 +144,6 @@
             return t.posX === item.posX && t.posY === item.posY + 1
           })
         }
-        console.log('b i', bindItem)
         if (bindItem._status === 1) {
           return
         }
@@ -157,16 +157,25 @@
         }
         this.$store.commit('setOrder', seatInfo)
         this.$store.commit('toggleDiglog', 'Pay')
+      },
+      rmSeatIfCancelY: function () {
+        if (this.yueinfo.phone === '') {
+          this.bindSeatId = null
+        }
       }
     },
     computed: {
       yueinfo () {
         return this.$store.getters.getYInfo
+      },
+      updateSeats () {
+        return this.$store.getters.getUpdateSeats
       }
     },
     watch: {
       // 如果路由有变化，会再次执行该方法
       '$route': 'fetchData',
+      updateSeats: 'fetchData',
       bindSeatId: 'updateBindSeatId'
     }
   }
