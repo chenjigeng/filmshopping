@@ -61,7 +61,7 @@ export default {
         var params = {
           customerTicketId: this.seatInfo[0],
           partnerTicketId: this.seatInfo[1],
-          message: this.yueinfo ? this.yueinfo.message : ''
+          message: this.yueinfo.phone ? this.yueinfo.message : ''
         }
         this.$http.post('/api/order/create', params,
           {

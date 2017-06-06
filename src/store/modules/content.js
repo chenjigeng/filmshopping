@@ -17,7 +17,14 @@ const content = {
       phone: ''
     },
     seatInfo: null,
-    updateSeats: false
+    updateSeats: false,
+    scheduleInfo: {
+      startTime: '',
+      endTime: '',
+      cinemaName: '',
+      movieName: ''
+    },
+    tickets: []
   },
   mutations: {
     toggleDiglog (state, payload) {
@@ -40,6 +47,12 @@ const content = {
     },
     setOrder (state, payload) {
       state.seatInfo = payload
+    },
+    setScheduleInfo (state, payload) {
+      state.scheduleInfo = payload
+    },
+    setTickets (state, payload) {
+      state.tickets = payload
     },
     toggleUpdateSeats (state, payload) {
       state.updateSeats = !state.updateSeats
@@ -69,6 +82,12 @@ const content = {
     },
     getUpdateSeats (state) {
       return state.updateSeats
+    },
+    getScheduleInfo (state) {
+      return state.scheduleInfo
+    },
+    getTickets (state) {
+      return state.tickets
     }
   },
   actions: {

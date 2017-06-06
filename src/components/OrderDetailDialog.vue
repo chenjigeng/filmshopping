@@ -8,13 +8,13 @@
     :show-close='false'
   >
     <p class='status'>支付成功</p>
-    <p class='movie-name'>神奇女侠</p>
-    <p class='time mb-5'>6月5号 21:30-23:50</p>
-    <p class='location mt-5'>超级英雄电影院</p>
-    <p class='seat'>5排6座</p>
+    <p class='movie-name'>{{ scheduleInfo.movieName }}</p>
+    <p class='time mb-5'>{{ scheduleInfo.startTime }} - {{ scheduleInfo.endTime }}</p>
+    <p class='location mt-5'>{{ scheduleInfo.cinemaName }}</p>
+    <p class='seat' v-for='t in tickets'>{{ t.posX }} 排 {{ t.posY }} 座</p>
     <div>
-      <p class='link'>约友联系方式是：18819253444</p>
-      <p class='welcome'>请享受欢乐约影吧O(∩_∩)O</p>
+      <p class='link' v-if='yueInfo.phone'>约友联系方式是：{{ yueInfo.phone }}</p>
+      <p class='welcome'>请享受欢乐约影吧</p>
     </div>
     <img src='../assets/yue3.png' class='logo'>
     <el-button @click='toggleDialog'>OK</el-button>
@@ -28,6 +28,15 @@ export default {
   computed: {
     dialogVisible () {
       return this.$store.getters.getOrderDetailDialog
+    },
+    yueInfo () {
+      return this.$store.getters.getYInfo
+    },
+    scheduleInfo () {
+      return this.$store.getters.getScheduleInfo
+    },
+    tickets () {
+      return this.$store.getters.getTickets
     }
   },
   data () {
