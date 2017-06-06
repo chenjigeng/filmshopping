@@ -8,6 +8,8 @@
     <div>
       <LRdialog></LRdialog>
       <Ydialog></Ydialog>
+      <ODdialog></ODdialog>
+      <Paydialog></Paydialog>
     </div>
   </div>
 </template>
@@ -16,6 +18,8 @@
 import Navbar from './components/Nav'
 import LRdialog from '@/components/LRdialog'
 import Ydialog from '@/components/applyYDialog'
+import ODdialog from '@/components/orderdetaildialog'
+import Paydialog from '@/components/paydialog'
 export default {
   data () {
     return {
@@ -26,7 +30,9 @@ export default {
   components: {
     Navbar,
     LRdialog,
-    Ydialog
+    Ydialog,
+    ODdialog,
+    Paydialog
   }
 }
 </script>

@@ -8,7 +8,6 @@
     el-menu-item(index='' v-if='userinfo.login').fr {{ userinfo.phone }}
     el-menu-item(@click='login' index='' v-if='!userinfo.login').fr 登录
     el-menu-item(index='/order' v-if='userinfo.login').fr 订单
-    el-menu-item(@click='Y' index='').fr Y
     el-menu-item(index='' ref='logo').logo
       img(src='../assets/yue1.png')
   
@@ -47,10 +46,6 @@ export default {
     }, 3000)
   },
   methods: {
-    Y () {
-      console.log('enter')
-      this.$store.commit('toggleDiglog', 'Y')
-    },
     logout () {
       this.$http.get('/api/user/logout')
         .then(response => {

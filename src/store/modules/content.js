@@ -10,9 +10,11 @@ const content = {
     dialog: {
       YDialog: false,
       LRDialog: false,
-      OrderDetail: false
+      OrderDetail: false,
+      Pay: false
     },
     yueinfo: null
+    }
   },
   mutations: {
     increment (state, payload) {
@@ -26,6 +28,8 @@ const content = {
         state.dialog.YDialog = !state.dialog.YDialog
       } else if (payload === 'OrderDetail') {
         state.dialog.OrderDetail = !state.dialog.OrderDetail
+      } else if (payload === 'Pay') {
+        state.dialog.Pay = !state.dialog.Pay
       }
     },
     changeUserInfo (state, payload) {
@@ -55,6 +59,9 @@ const content = {
     },
     getYInfo (state) {
       return state.yueinfo
+    },
+    getPayDialog (state) {
+      return state.dialog.Pay
     }
   },
   actions: {

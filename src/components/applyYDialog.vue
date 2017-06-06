@@ -80,6 +80,7 @@ export default {
     width: 220px;
   }
   .submit-btn {
+    border-color: black;
     width: 100%;
     background: black;
     color: #fde101;
