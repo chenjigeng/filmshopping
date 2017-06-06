@@ -49,6 +49,7 @@ export default {
         .then(response => {
           if (response.ok) {
             this.$store.commit('changeUserInfo', {login: false})
+            this.$router.push('/home')
           } else {
             this.$message({
               type: 'error',

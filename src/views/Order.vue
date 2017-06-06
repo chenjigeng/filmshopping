@@ -7,8 +7,8 @@
     span.ml-10 {{ info.username }}
   main
     .card-list
-      span(v-for='n in 10')
-        order-card
+      span(v-for='order in orders')
+        order-card(:content='order')
       
 </template>
 
@@ -30,6 +30,16 @@ export default {
       }
     })
   },
+  created () {
+    let loading = this.$loading({ fullscreen: true })
+    // 0 支付成功  1 约影成功 2 交易完成 3 订单取消
+    this.$http.get('/api/order/allorder')
+      .then(response => {
+        this.orders = response.body
+        loading.close()
+        console.log(response)
+      })
+  },
   computed: {
     info () {
       return this.$store.getters.getUserInfo
@@ -37,6 +47,7 @@ export default {
   },
   data () {
     return {
+      orders: [],
       myTheme: 'light'
     }
   },
