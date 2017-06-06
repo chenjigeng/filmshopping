@@ -27,7 +27,6 @@ export default {
   name: 'Home',
   computed: {
     dialogVisible () {
-      console.log(this.$store.getters.getOrderDetailDialog)
       return this.$store.getters.getOrderDetailDialog
     }
   },

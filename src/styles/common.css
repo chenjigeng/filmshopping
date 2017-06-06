@@ -20,3 +20,7 @@ button.row {
   border-color: #fba214;
   background: #fba214;
 }
+
+.yue-nav .el-menu .el-menu-item{
+  width: 100%
+}

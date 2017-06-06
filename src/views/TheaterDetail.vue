@@ -1,32 +1,32 @@
 <template lang='jade'>
-  .theater-detail
+div
+  .theater-detail(v-if='!loading')
     .select-header
       span.font-10.bold.white SELECT MOVIE
     .side-bar.bg-white 
       img(src='../assets/sidebar2.png')
     .theater-header
       .t-name-container.p-15
-        div.t-name.black.font-20.bold
+        div.t-name.black.font-20.bold.tl {{ theater && theater.name }}
         div.t-info.white.tl.fr.font-8.bold
-          p.m-5 location: xxxxxxxxxxxxxxxx
-          p.m-5 tel: 111111111111
+          p.m-5 地址:{{ theater && theater.address }}
       .t-img-container
         img(src='../assets/theater1.jpg')
       .t-rank
         p
           span.font-10.bold.mr-5.fix-rank 评分
           span.font-18.bold.white 9.8
-        div.rank-stars
-          img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
+        div.rank-stars(v-if='theater')
+          el-rate(v-model='theater.rank' disabled allow-half)
     .movie-list
-      p.font8.bold.tl 影院同期热播电影
+      p.font8.bold.tl.pl-20.tips.pt-20 影院同期热播电影
       el-row.movie-list(ref='movieItems')
         el-col.movie-item.bg-color(v-bind:span="4" v-for="(item, index) in movies" v-bind:key="item")
-          img(:src='"/static/" + item.post' @click='selectMovie(index, $event)')
+          img(:src='"/static/" + item.post' @click='selectMovie(index, $event)' v-bind:class='{active: index === imgIndex}')
     .select-list
       .s-item.mb-20(v-for='item in schedule' v-bind:key='item')
         span.font-10.bold.fl {{ item.startTime }} - {{ item.endTime }}
-        el-button.font-10.s-btn.fr(@click='clickSelectBtn') SELECT SEAT
+        el-button.font-10.s-btn.fr(@click='clickSelectBtn(item.id)') SELECT SEAT
         .clear
 </template>
 
@@ -35,54 +35,32 @@ export default {
   name: 'TheaterDetail',
   data () {
     return {
+      imgIndex: 0,
       movies: [],
       myTheme: 'light',
-      schedule: []
+      schedule: [],
+      loading: true
     }
   },
   created () {
+    let loading = this.$loading({fullscreen: true})
     this.$http.get(`/api/cinema/${this.$route.params.id}`)
       .then(response => {
-        console.log(response)
-      })
-    this.$http.get(`/api/movie/cinema/${this.$route.params.id}`)
-      .then(response => {
-        this.movies = response.body
-        console.log(this.movies)
-        this.$http.post('/api/schedule/scheduleinfo', {
-          cinemaId: this.$route.params.id,
-          movieId: this.movies[0].id
-        }, {
-          emulateJSON: true
-        })
-        .then(response => {
-          console.log(response)
-          this.schedule = response.body
-        })
+        loading.close()
+        this.loading = false
+        this.movies = response.body.movies
+        this.schedule = response.body.movies[0].schedules
+        this.theater = response.body
+        this.theater.rank /= 2
       })
   },
   methods: {
     selectMovie (index, e) {
-      console.log(index)
-      console.log(e)
-      this.$http.post('/api/schedule/scheduleinfo', {
-        cinemaId: this.$route.params.id,
-        movieId: this.movies[index].id
-      }, {
-        emulateJSON: true
-      })
-      .then(response => {
-        console.log(response)
-        this.schedule = response.body
-        console.log(this.$refs.movieItems)
-      })
-      for (let i = 0; i < this.$refs.movieItems.$el.children.length; i++) {
-        this.$refs.movieItems.$el.children[i].className = this.$refs.movieItems.$el.children[i].className.replace(/ *active/, '')
-      }
-      e.target.parentElement.className += ' active'
+      this.schedule = this.movies[index].schedules
+      this.imgIndex = index
     },
-    clickSelectBtn: function () {
-      this.$router.push({ path: `/select-seat/${this.$route.params.id}` })
+    clickSelectBtn: function (id) {
+      this.$router.push({ path: `/select-seat/${id}` })
     }
   }
 }
@@ -116,11 +94,13 @@ $bg-color: #fba214
       width: 400px
       height: 120px
       .t-name
+        font-size: 24px
         width: 300px
         border-top: 2px solid white
       .t-info
         position: absolute
-        bottom: 0
+        bottom: 20px
+        padding-left: 190px
         right: 0
     .t-img-container
       position: absolute
@@ -136,6 +116,8 @@ $bg-color: #fba214
       left: 20px
       bottom: 0
       display: inline-block
+  .tips
+    color: #fcdf32
   .movie-list
     width: 1000px
     margin: 10px auto
@@ -150,8 +132,7 @@ $bg-color: #fba214
       img
         width: 100px
         height: 140px
-    .movie-item.active
-      img
+      img.active
         border: 3px solid #e4c38d
   .select-list
     width: 1000px

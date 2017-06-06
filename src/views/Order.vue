@@ -16,6 +16,20 @@
 import card from '@/components/ordercard'
 export default {
   name: 'order',
+  beforeRouteEnter: (to, from, next) => {
+    next(vm => {
+      if (!vm.$store.getters.getUserInfo.login) {
+        vm.$message({
+          type: 'error',
+          message: '请先登录'
+        })
+        next({ path: '/home' })
+        vm.$store.commit('toggleDiglog', 'LR')
+      } else {
+        next()
+      }
+    })
+  },
   computed: {
     info () {
       return this.$store.getters.getUserInfo
