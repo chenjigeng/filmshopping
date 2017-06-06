@@ -13,8 +13,11 @@ const content = {
       OrderDetail: false,
       Pay: false
     },
-    yueinfo: null
-    }
+    yueinfo: {
+      messsage: '',
+      phone: ''
+    },
+    seatInfo: null
   },
   mutations: {
     increment (state, payload) {
@@ -37,8 +40,10 @@ const content = {
     },
     applyY (state, payload) {
       state.yueinfo = payload
-      state.dialog.YDialog = !state.dialog.YDialog
-      console.log('yueinfo', state)
+      console.log('yueinfo', state.yueinfo)
+    },
+    setOrder (state, payload) {
+      state.seatInfo = payload
     }
   },
   getters: {
@@ -62,6 +67,9 @@ const content = {
     },
     getPayDialog (state) {
       return state.dialog.Pay
+    },
+    getSeatInfo (state) {
+      return state.seatInfo
     }
   },
   actions: {

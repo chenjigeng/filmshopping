@@ -17,7 +17,8 @@
       el-col.trapezoid(v-bind:span='12')
         div
       el-col.apply-btn-container(v-bind:span='6')
-        el-button.apply-btn.font-10.bold(@click='Y') 点我申请约影
+        el-button.apply-btn.font-10.bold(@click='Y' v-show='!yueinfo.phone') 点我申请约影
+        el-button.apply-btn.font-10.bold(@click='Y' v-show='yueinfo.phone') 点我取消约影
     .seats.bg-white.p-30(v-if='tickets')
       .left
         .img(v-for='item in tickets.filter(item => { return item.posY <= 4 })' v-bind:key='item' @click='clickTicket(item)' v-bind:class="item._status !== 1 ? 'pointer' : '' ")
@@ -56,7 +57,7 @@
         loading: null,
         tickets: null,
         bindSeatId: null,
-        toBuyId: []
+        hasY: false
       }
     },
     methods: {
@@ -66,13 +67,8 @@
         this.$http.get('/api/schedule/1')
         .then((resp) => {
           resp.data.tickets.forEach((item) => {
-            // todo
-            // item.status = 1
             item._status = item.status
           })
-          // todo
-          // resp.data.tickets[0].message = 'adasd'
-          // resp.data.tickets[0]._status = resp.data.tickets[0].status = 2
           this.loading = false
           this.tickets = resp.data.tickets
         })
@@ -80,16 +76,10 @@
       clickTicket: function (item) {
         // 1:锁定 0:可选 2:可约 3:选中
         if (item._status === 0) {
-          item._status = 3
-          if (this.yueinfo) {
+          if (this.yueinfo.phone) {
             this.autoSelectSeat(item)
-            this.toBuyId.forEach(id => {
-              this.tickets.find(t => {
-                return t.id === id
-              })._status = 0
-            })
           } else {
-            this.toBuyId.push(item.id)
+            this.bindSeatId = [item.id, -1]
           }
           return
         }
@@ -99,7 +89,7 @@
           return
         }
         if (item._status === 3) {
-          if (this.yueinfo) {
+          if (this.yueinfo.phone) {
             this.bindSeatId.forEach((i) => {
               this.tickets[i]._status = 0
             })
@@ -111,21 +101,36 @@
         }
       },
       Y: function () {
-        this.$store.commit('toggleDiglog', 'Y')
+        if (this.yueinfo.phone) {
+          this.$message('已取消约影')
+          this.$store.commit('applyY', {
+            messsage: '',
+            phone: ''
+          })
+          this.bindSeatId = null
+        } else {
+          this.$store.commit('toggleDiglog', 'Y')
+        }
       },
       updateBindSeatId: function (newV, oldV) {
         if (oldV) {
           oldV.forEach((id) => {
-            this.tickets.find(t => {
-              return t.id === id
-            })._status = 0
+            if (id !== -1) {
+              this.tickets.find(t => {
+                return t.id === id
+              })._status = 0
+            }
           })
         }
-        newV.forEach((id) => {
-          this.tickets.find(t => {
-            return t.id === id
-          })._status = 3
-        })
+        if (newV) {
+          newV.forEach((id) => {
+            if (id !== -1) {
+              this.tickets.find(t => {
+                return t.id === id
+              })._status = 3
+            }
+          })
+        }
       },
       autoSelectSeat: function (item, index) {
         var bindItem = null
@@ -138,32 +143,20 @@
             return t.posX === item.posX && t.posY === item.posY + 1
           })
         }
+        console.log('b i', bindItem)
+        if (bindItem._status === 1) {
+          return
+        }
         this.bindSeatId = [item.id, bindItem.id]
       },
       clkBuy: function () {
-        var promises = []
-        if (this.yueinfo && this.bindSeatId) {
-          promises = this.bindSeatId.map(i => {
-            return this.buyAPI(i)
-          })
-        } else if (this.toBuyId.length > 0) {
-          promises = this.toBuyId.map(i => {
-            return this.buyAPI(i)
-          })
+        var seatInfo = this.bindSeatId
+        if (!seatInfo) {
+          this.$alert('请先选择座位！')
+          return
         }
-        Promise.all(promises).then(posts => {
-          this.$alert('买票成功')
-        }).catch(reason => {
-          console.log('err')
-        })
-      },
-      buyAPI: function (id) {
-        return new Promise(resolve => {
-          this.$http.get('/api/order/buy/' + id).then(resp => {
-            console.log('b api', resp)
-            resolve(resp)
-          })
-        })
+        this.$store.commit('setOrder', seatInfo)
+        this.$store.commit('toggleDiglog', 'Pay')
       }
     },
     computed: {

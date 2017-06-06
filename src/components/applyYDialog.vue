@@ -7,22 +7,20 @@
     :before-close="handleClose"
     :show-close='false'
   >
-    <el-input 
-      class='message mb-20'
-      v-model='message'
-      type='textarea'
-      resize='none'
-      :maxlength='100'
-      placeholder='约影留言能够提高约影成功率哦！O(∩_∩)O~~'
-    ></el-input>
     <div>
-      <label class='mr-15'>请留下您的联系方式:</label>
-      <el-input v-model='phone' class='phone' ></el-input>
+      <el-form :model='form' :rules='rules' class='tl' ref='form'>
+        <el-form-item prop='message'>
+          <el-input type="textarea" class='message mb-20' resize='none' v-model='form.message' placeholder='约影留言能够提高约影成功率哦！O(∩_∩)O~~'></el-input>
+        </el-form-item>
+        <el-form-item prop='phone'>
+          <el-input v-model='form.phone' placeholder='联系方式'></el-input>
+        </el-form-item>
+      </el-form>
     </div>  
     <p class='tips'>
       PS：申请约影后，选择两个连续空位的左侧空位，系统将自动锁定右侧空位为待约影位
     </p>
-    <el-button class='submit-btn' @click='submit'>APPLY</el-button>
+    <el-button class='submit-btn' @click="submit('form')">APPLY</el-button>
   </el-dialog>
 </div>
 </template>
@@ -33,12 +31,25 @@ export default {
   computed: {
     dialogVisible () {
       return this.$store.getters.getYDialog
+    },
+    yueinfo () {
+      return this.$store.getters.yueinfo
     }
   },
   data () {
     return {
-      message: '',
-      phone: ''
+      form: {
+        message: '',
+        phone: ''
+      },
+      rules: {
+        message: [
+          { max: 100, message: '留言过长', trigger: 'blur' }
+        ],
+        phone: [
+          { required: true, message: '请输入联系方式', trigger: 'blur' }
+        ]
+      }
     }
   },
   methods: {
@@ -48,12 +59,17 @@ export default {
     handleClose (action, instance, done) {
       this.$store.commit('toggleDiglog', 'Y')
     },
-    submit () {
-      var yueinfo = {
-        message: this.message,
-        phone: this.phone
-      }
-      this.$store.commit('applyY', yueinfo)
+    submit (formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          var yueinfo = this.form
+          this.$store.commit('applyY', yueinfo)
+          this.$store.commit('toggleDiglog', 'Y')
+          this.$message('已进入约影定座模式！')
+        } else {
+          return false
+        }
+      })
     }
   }
 }
