@@ -84,7 +84,7 @@
 export default {
   name: 'Home',
   created () {
-    this.$http.get('api/movie/hotmovies/1')
+    this.$http.get('api/movie/hotmovies/0')
       .then((resp) => {
         console.log('data, resp', resp)
       })

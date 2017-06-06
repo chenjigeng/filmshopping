@@ -49,7 +49,11 @@ export default {
       this.$store.commit('toggleDiglog', 'Y')
     },
     submit () {
-      alert('TODO')
+      var yueinfo = {
+        message: this.message,
+        phone: this.phone
+      }
+      this.$store.commit('applyY', yueinfo)
     }
   }
 }

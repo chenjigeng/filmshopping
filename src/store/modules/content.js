@@ -11,7 +11,8 @@ const content = {
       YDialog: false,
       LRDialog: false,
       OrderDetail: false
-    }
+    },
+    yueinfo: null
   },
   mutations: {
     increment (state, payload) {
@@ -29,6 +30,11 @@ const content = {
     },
     changeUserInfo (state, payload) {
       state.userinfo = Object.assign(state.userinfo, payload)
+    },
+    applyY (state, payload) {
+      state.yueinfo = payload
+      state.dialog.YDialog = !state.dialog.YDialog
+      console.log('yueinfo', state)
     }
   },
   getters: {
@@ -46,6 +52,9 @@ const content = {
     },
     getOrderDetailDialog (state) {
       return state.dialog.OrderDetail
+    },
+    getYInfo (state) {
+      return state.yueinfo
     }
   },
   actions: {
