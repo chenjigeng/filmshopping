@@ -64,7 +64,7 @@
       fetchData: function () {
         this.bindSeatId = null
         this.$store.commit('applyY', {
-          messsage: '',
+          message: '',
           phone: ''
         })
         let _loading = this.$loading({fullscreen: true})
@@ -74,23 +74,12 @@
         this.$http.get('/api/schedule/' + this.scheduleId).then((resp) => {
           this.$http.get('/api/movie/' + resp.data.movieId).then(mDetail => {
             this.$http.get('/api/cinema/hotcinemas').then(cDetail => {
-              console.log('rsp', resp.data)
-              console.log('mrsp', mDetail.data)
-              console.log('crsp', cDetail.data)
               let cinemaName = ''
               let movieName = mDetail.data.nameCn
               cDetail.data.forEach(c => {
-                console.log('cmopare', resp.data.cinemaId, c)
                 if (resp.data.cinemaId === c.id) {
                   cinemaName = c.name
-                  console.log('cinemaName', c.name)
                 }
-              })
-              console.log('set s info', {
-                startTime: resp.data.startTime,
-                endTime: resp.data.endTime,
-                cinemaName: cinemaName,
-                movieName: movieName
               })
               this.$store.commit('setScheduleInfo', {
                 startTime: resp.data.startTime,
@@ -124,7 +113,7 @@
           }
           this.l_msg = item.message
           item._status = 3
-          this.bindSeatId = [item.id, -1]
+          this.bindSeatId = [item.id, -2]
           return
         }
         if (item._status === 3) {
@@ -146,7 +135,7 @@
         if (this.yueinfo.phone) {
           this.$message('已取消约影')
           this.$store.commit('applyY', {
-            messsage: '',
+            message: '',
             phone: ''
           })
         } else {
@@ -157,7 +146,7 @@
       updateBindSeatId: function (newV, oldV) {
         if (oldV && this.tickets) {
           oldV.forEach((id) => {
-            if (id !== -1) {
+            if (id >= 0) {
               let target = this.tickets.find(t => {
                 return t.id === id
               })
@@ -167,7 +156,7 @@
         }
         if (newV && this.tickets) {
           newV.forEach((id) => {
-            if (id !== -1) {
+            if (id >= 0) {
               this.tickets.find(t => {
                 return t.id === id
               })._status = 3
@@ -207,9 +196,15 @@
               posX: ticket.posX,
               posY: ticket.posY
             })
+            if (ticket.status === 2) {
+              console.log('ticket message', ticket)
+              this.$store.commit('applyY', {
+                message: ticket.message,
+                phone: ''
+              })
+            }
           }
         })
-        console.log('ticktes', tickets)
         this.$store.commit('setOrder', seatInfo)
         this.$store.commit('setTickets', tickets)
         console.log('s s tickets', this.tickets__)

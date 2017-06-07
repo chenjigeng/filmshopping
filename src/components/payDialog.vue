@@ -49,6 +49,21 @@ export default {
         this.$alert('请先登录', '注意')
         return
       }
+      // 约影
+      if (this.seatInfo[1] === -2) {
+        this.$http.get('/api/order/participate/' + this.seatInfo[0]).then(resp => {
+          this.$store.commit('toggleDiglog', 'Pay')
+          this.$store.commit('toggleDiglog', 'OrderDetail')
+          this.$message('约影成功')
+        }).catch(reason => {
+          console.log('resson', reason)
+          this.$message({
+            type: 'error',
+            message: reason.bodyText
+          })
+        })
+        return
+      }
       var promises = this.seatInfo.map(i => {
         if (i !== -1) {
           return this.buyAPI(i)
@@ -68,17 +83,16 @@ export default {
             emulateJSON: true
           }).then(resp => {
             this.$message('创建订单成功')
-            this.$store.commit('toggleUpdateSeats', null)
           }).catch(reason => {
             this.$message({
               type: 'error',
-              message: reason
+              message: reason.bodyText
             })
           })
       }).catch(reason => {
         this.$message({
           type: 'error',
-          message: reason
+          message: reason.bodyText
         })
       })
     },

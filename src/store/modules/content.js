@@ -43,6 +43,7 @@ const content = {
       state.userinfo = Object.assign(state.userinfo, payload)
     },
     applyY (state, payload) {
+      console.log('apply', payload)
       state.yueinfo = payload
     },
     setOrder (state, payload) {
