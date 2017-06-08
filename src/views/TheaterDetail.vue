@@ -24,6 +24,8 @@ div
         el-col.movie-item.bg-color(v-bind:span="4" v-for="(item, index) in movies" v-bind:key="item")
           img(:src='"/static/" + item.post' @click='selectMovie(index, $event)' v-bind:class='{active: index === imgIndex}')
     .select-list
+      .s-item.mb-20(v-if='schedule.length === 0')
+        p 该电影当前无排期
       .s-item.mb-20(v-for='item in schedule' v-bind:key='item')
         span.font-10.bold.fl {{ item.startTime }} - {{ item.endTime }}
         el-button.font-10.s-btn.fr(@click='clickSelectBtn(item.id)') SELECT SEAT
