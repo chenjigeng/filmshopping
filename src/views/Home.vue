@@ -144,7 +144,6 @@ export default {
       this.$router.push(`/movie-detail/${id}`)
     },
     fetch: function () {
-      console.log('fetch')
     },
     clickMoreBtn: function () {
       this.$router.push({ path: `/movie-detail/${this.movies[0].id}` })

@@ -56,7 +56,6 @@ export default {
           this.$store.commit('toggleDiglog', 'OrderDetail')
           this.$message('约影成功')
         }).catch(reason => {
-          console.log('resson', reason)
           this.$message({
             type: 'error',
             message: reason.bodyText
