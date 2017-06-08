@@ -174,6 +174,7 @@ export default {
   
   .content
     margin-top: 80px
+    padding-bottom: 400px
     .desc
       p
         position: relative
