@@ -23,7 +23,6 @@
         span#span1.font1 {{ movies[0].nameCn }}
         span#span2.font3 评分
         span#span3.font2.white {{ movies[0].rank }}
-        span#span4.font5 SHAPE
         span#span5(@click='like')
           img(src='../assets/s2.png' v-if='liked')
           img(src="../assets/s1.png" alt="约影" v-if='!liked')
