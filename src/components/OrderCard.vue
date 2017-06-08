@@ -8,8 +8,8 @@
   p.seat.mt-30 {{ order.posX }} 排 {{ order.posY }} 座
   p.link.mt-10(v-if='order.orderStatus === 1 && order.partnerPhone !== -1') 约友联系方式: {{ order.partnerPhone }}
   p.tips.mt-10(v-if='order.orderStatus === 1 && order.partnerPhone !== -1') 请享受欢乐约影吧O(∩_∩)O
-  img(src='../assets/yue3.png' class='logo')
-  el-button.btn(@click='confirm(order.orderId)' v-if='order.orderStatus === 0 || order.partnerPhone === 1') 退票
+  img(src='../assets/yue3.png' class='logo' v-if='order.orderStatus !== 1')
+  el-button.btn(@click='confirm(order.orderId)' v-if='order.orderStatus === 0 || order.orderStatus === 1') 退票
 </template>
 
 <script>

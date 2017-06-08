@@ -16,6 +16,12 @@ UI框架： element-UI
 1. 公用的组件写在components
 2. 具体的页面逻辑写在views里
 
+## 部署方式
+1. 打包前端代码
+```bash
+npm run build
+```
+2. 
 ## Build Setup
 
 ``` bash
