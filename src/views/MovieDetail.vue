@@ -22,7 +22,7 @@ div
           span.font-10.bold.mr-5.fix-rank 评分
           span.font-18.bold.white {{ movie.rank }}
         div.rank-stars
-          el-rate(v-model='movie.rankI')
+          el-rate(v-model='movie.rankI' disabled allow-half disabled-void-color='#f7ba2a' v-bind:colors="['#FFFFFF', '#FFFFFF', '#FFFFFF']")
       el-button.buy-btn.bg-black.white.font-10.bold(@click='gotoMoive') BUY
 
 
