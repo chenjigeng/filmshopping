@@ -28,7 +28,6 @@ const content = {
   },
   mutations: {
     toggleDiglog (state, payload) {
-      console.log(payload)
       if (payload === 'LR') {
         state.dialog.LRDialog = !state.dialog.LRDialog
       } else if (payload === 'Y') {
@@ -43,7 +42,6 @@ const content = {
       state.userinfo = Object.assign(state.userinfo, payload)
     },
     applyY (state, payload) {
-      console.log('apply', payload)
       state.yueinfo = payload
     },
     setOrder (state, payload) {

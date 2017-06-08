@@ -46,7 +46,7 @@ export default {
     },
     submit () {
       if (!this.userInfo.login) {
-        this.$alert('请先登录', '注意')
+        this.$store.commit('toggleDiglog', 'LR')
         return
       }
       // 约影
