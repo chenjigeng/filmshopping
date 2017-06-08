@@ -16,7 +16,7 @@
       .side-bar  
         img(src='../assets/sidebar1.png') 
       .movie-content.bg-black
-        .select-header
+        .select-header#select-more
           span.font6.white SELECT MOVIE
         img(:src='"/static/" + movies[0].post ' alt="约影" @click='clickMoreBtn')
       .movie-desc
@@ -46,7 +46,7 @@
           .side-bar
             img(src='../assets/sidebar1.png') 
           .area-content
-            .select-header
+            .select-header#select-movie
               span.font6.white SELECT MOVIE
             .district-select
               div
@@ -74,7 +74,7 @@
 export default {
   name: 'Home',
   beforeRouteEnter (to, from, next) {
-    if (to.hash && to.hash === '#footer') {
+    if (to.hash && to.hash === '#select-movie') {
       next(vm => {
         vm.footer = true
         next()
@@ -176,6 +176,7 @@ export default {
     margin-top: 80px
     padding-bottom: 400px
     .desc
+      margin-bottom: 200px
       p
         position: relative
         font-size: 35px

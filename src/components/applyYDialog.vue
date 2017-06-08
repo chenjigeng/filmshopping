@@ -12,11 +12,8 @@
         <el-form-item prop='message'>
           <el-input type="textarea" class='message mb-20' resize='none' v-model='form.message' placeholder='约影留言能够提高约影成功率哦！O(∩_∩)O~~'></el-input>
         </el-form-item>
-        <el-form-item prop='phone'>
-          <el-input v-model='form.phone' placeholder='联系方式'></el-input>
-        </el-form-item>
       </el-form>
-    </div>  
+    </div>
     <p class='tips'>
       PS：申请约影后，选择两个连续空位的左侧空位，系统将自动锁定右侧空位为待约影位
     </p>

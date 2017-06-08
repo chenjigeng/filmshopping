@@ -61,7 +61,11 @@ export default {
   },
   methods: {
     gotoMoive () {
-      this.$router.push('/home#footer')
+      this.$message({
+        type: 'info',
+        message: '请在主页选择观影影院'
+      })
+      this.$router.push('/home#select-movie')
     }
   }
 }
