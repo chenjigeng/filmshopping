@@ -37,7 +37,6 @@ export default {
       .then(response => {
         this.orders = response.body
         loading.close()
-        console.log(response)
       })
   },
   computed: {

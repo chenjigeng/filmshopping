@@ -17,13 +17,12 @@ div
         p.font-7 {{ movie.releaseTime + '大陆上映'}}
       .movie-desc.font-7.bg-white.ml-10
         span.tl {{ movie.introduction }}
-
       .movie-rank.tl.pt-25.pl-10
         p
           span.font-10.bold.mr-5.fix-rank 评分
           span.font-18.bold.white {{ movie.rank }}
         div.rank-stars
-          img(v-for="item in 5" v-bind:key="item" src="../assets/star1.png")
+          el-rate(v-model='movie.rankI' disabled allow-half disabled-void-color='#f7ba2a' v-bind:colors="['#FFFFFF', '#FFFFFF', '#FFFFFF']")
       el-button.buy-btn.bg-black.white.font-10.bold(@click='gotoMoive') BUY
 
 
@@ -45,6 +44,7 @@ export default {
       .then(response => {
         this.loading = false
         this.movie = response.body
+        this.movie.rankI = this.movie.rank / 2
         let type = this.movie.type
         let result = ''
         let mask = 1
@@ -61,7 +61,11 @@ export default {
   },
   methods: {
     gotoMoive () {
-      this.$router.push('/home#footer')
+      this.$message({
+        type: 'info',
+        message: '请在主页选择观影影院'
+      })
+      this.$router.push('/home#select-movie')
     }
   }
 }

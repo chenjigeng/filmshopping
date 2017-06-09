@@ -16,14 +16,13 @@
       .side-bar  
         img(src='../assets/sidebar1.png') 
       .movie-content.bg-black
-        .select-header
+        .select-header#select-more
           span.font6.white SELECT MOVIE
         img(:src='"/static/" + movies[0].post ' alt="约影" @click='clickMoreBtn')
       .movie-desc
         span#span1.font1 {{ movies[0].nameCn }}
         span#span2.font3 评分
         span#span3.font2.white {{ movies[0].rank }}
-        span#span4.font5 SHAPE
         span#span5(@click='like')
           img(src='../assets/s2.png' v-if='liked')
           img(src="../assets/s1.png" alt="约影" v-if='!liked')
@@ -38,30 +37,29 @@
         el-col.movie-item(v-bind:span="4" v-for="(item, index) in movies" v-bind:key="item"
           v-bind:class="index < 2 ? 'bg-black' : '' ")
             img(:src='"/static/" + item.post' @click='gotoMovieDetail(item.id)')
-
+    .rank-container.spe
+      .left
+      .right
     .rank-container
       .left
         .area
           .side-bar
+            img(src='../assets/sidebar1.png') 
           .area-content
-            .select-header
+            .select-header#select-movie
               span.font6.white SELECT MOVIE
             .district-select
               div
                 img(src="../assets/lo3.png")
               el-select(v-model="district" placeholder="请选择" @change='handleSelect').select-pos
                 el-option(v-for="item in districtOptions" v-bind:key="item.value" v-bind:label="item.label" v-bind:value="item.value")
-        .rank-info
-          span.font8.mg-rt-50.pad-t-20.white RANK
-          span.font8.mg-rt-50.pad-t-20 BY
-          img(src="../assets/star2.png")
       .right
         .theaters
           el-row.item(v-for='(item,index) in cinemas' v-bind:key='index')
             el-col(v-bind:span="8")
               span.font2 {{ index }}
               div
-                el-rate(v-model='item.rank' disabled allow-half)
+                el-rate(v-model='item.rank' disabled allow-half disabled-void-color='#f7ba2a' v-bind:colors="['#FFFFFF', '#FFFFFF', '#FFFFFF']")
             el-col(v-bind:span="12")
               p.font3.tl {{ item.name }}
               p.font4.f4-spe 地址: {{ item.address }}
@@ -76,7 +74,7 @@
 export default {
   name: 'Home',
   beforeRouteEnter (to, from, next) {
-    if (to.hash && to.hash === '#footer') {
+    if (to.hash && to.hash === '#select-movie') {
       next(vm => {
         vm.footer = true
         next()
@@ -137,6 +135,9 @@ export default {
     handleSelect (value) {
       this.$http.get(`/api/cinema/location/${value}`)
         .then(response => {
+          for (let i = 0; i < response.body.length; i++) {
+            response.body[i].rank /= 2
+          }
           this.cinemas = response.body
         })
     },
@@ -144,7 +145,6 @@ export default {
       this.$router.push(`/movie-detail/${id}`)
     },
     fetch: function () {
-      console.log('fetch')
     },
     clickMoreBtn: function () {
       this.$router.push({ path: `/movie-detail/${this.movies[0].id}` })
@@ -177,7 +177,9 @@ export default {
   
   .content
     margin-top: 80px
+    padding-bottom: 400px
     .desc
+      margin-bottom: 200px
       p
         position: relative
         font-size: 35px
@@ -259,6 +261,12 @@ export default {
             width: 98px
             height: 138px
 
+    .rank-container.spe
+      height: 100px
+      .left
+        background: black
+        height: 100px
+        width: 500px
     .rank-container
       position: relative
       display: flex

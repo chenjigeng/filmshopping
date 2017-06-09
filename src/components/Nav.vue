@@ -2,8 +2,6 @@
 .nav
   el-menu(theme='dark' class="yue-nav" mode="horizontal" v-bind:default-active="activeItem" @select="handleSelect" router)
     el-menu-item(index="/home") 主页
-    el-menu-item(index="/123") 电影
-    el-menu-item(index='/theater-detail/1') 影院
     el-submenu(index='' v-if='userinfo.login').fr 
       template(slot='title') {{ userinfo.username }}
       el-menu-item(index='' @click='logout' v-if='userinfo.login').fr 退出

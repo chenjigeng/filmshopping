@@ -46,7 +46,7 @@ export default {
     },
     submit () {
       if (!this.userInfo.login) {
-        this.$alert('请先登录', '注意')
+        this.$store.commit('toggleDiglog', 'LR')
         return
       }
       // 约影
@@ -56,7 +56,6 @@ export default {
           this.$store.commit('toggleDiglog', 'OrderDetail')
           this.$message('约影成功')
         }).catch(reason => {
-          console.log('resson', reason)
           this.$message({
             type: 'error',
             message: reason.bodyText

@@ -197,7 +197,6 @@
               posY: ticket.posY
             })
             if (ticket.status === 2) {
-              console.log('ticket message', ticket)
               this.$store.commit('applyY', {
                 message: ticket.message,
                 phone: ''
@@ -207,7 +206,6 @@
         })
         this.$store.commit('setOrder', seatInfo)
         this.$store.commit('setTickets', tickets)
-        console.log('s s tickets', this.tickets__)
         this.$store.commit('toggleDiglog', 'Pay')
       },
       rmSeatIfCancelY: function () {

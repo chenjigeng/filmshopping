@@ -15,7 +15,7 @@
     <div>
       <p class='link' v-if='yueInfo.phone'>约友联系方式是：{{ yueInfo.phone }}</p>
       <p class='link' v-if='yueInfo.message'>约友留言：{{ yueInfo.message }}</p>
-      <p class='welcome'>请享受欢乐约影吧</p>
+      <p class='welcome' v-if='yueInfo.phone'>请享受欢乐约影吧</p>
     </div>
     <img src='../assets/yue3.png' class='logo'>
     <el-button @click='toggleDialog'>OK</el-button>

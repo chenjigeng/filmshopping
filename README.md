@@ -6,7 +6,7 @@
 ```bash
 脚手架: vue-cli
 UI框架： element-UI
-前端： vue框架
+前端框架： vue
 状态管理器: vuex
 路由控制器: vue-router
 (其实就是vue全家桶)  
@@ -15,6 +15,23 @@ UI框架： element-UI
 ## 文件架构
 1. 公用的组件写在components
 2. 具体的页面逻辑写在views里
+3. store文件夹存放公用状态
+4. styles存放全局样式
+5. router存放路由定义
+6. assets存放着公共的图片/字体
+
+## 部署方式
+1. 打包前端代码
+```bash
+npm run build
+```
+2. 开启node服务器
+```bash
+node app.js
+```
+
+## 开发时切换服务器的方法
+在config/index.js里，有一个proxyTable,可以利用它来定义api转发规则和对应的服务器
 
 ## Build Setup
 

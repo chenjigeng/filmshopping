@@ -17,13 +17,15 @@ div
           span.font-10.bold.mr-5.fix-rank 评分
           span.font-18.bold.white 9.8
         div.rank-stars(v-if='theater')
-          el-rate(v-model='theater.rank' disabled allow-half)
+          el-rate(v-model='theater.rank' disabled allow-half disabled-void-color='#f7ba2a' v-bind:colors="['#FFFFFF', '#FFFFFF', '#FFFFFF']")
     .movie-list
       p.font8.bold.tl.pl-20.tips.pt-20 影院同期热播电影
       el-row.movie-list(ref='movieItems')
         el-col.movie-item.bg-color(v-bind:span="4" v-for="(item, index) in movies" v-bind:key="item")
           img(:src='"/static/" + item.post' @click='selectMovie(index, $event)' v-bind:class='{active: index === imgIndex}')
     .select-list
+      .s-item.mb-20(v-if='schedule.length === 0')
+        p 该电影当前无排期
       .s-item.mb-20(v-for='item in schedule' v-bind:key='item')
         span.font-10.bold.fl {{ item.startTime }} - {{ item.endTime }}
         el-button.font-10.s-btn.fr(@click='clickSelectBtn(item.id)') SELECT SEAT
