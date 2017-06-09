@@ -17,7 +17,7 @@ div
           span.font-10.bold.mr-5.fix-rank 评分
           span.font-18.bold.white 9.8
         div.rank-stars(v-if='theater')
-          el-rate(v-model='theater.rank' disabled allow-half)
+          el-rate(v-model='theater.rank' disabled allow-half disabled-void-color='#f7ba2a' v-bind:colors="['#FFFFFF', '#FFFFFF', '#FFFFFF']")
     .movie-list
       p.font8.bold.tl.pl-20.tips.pt-20 影院同期热播电影
       el-row.movie-list(ref='movieItems')

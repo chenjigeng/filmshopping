@@ -135,6 +135,9 @@ export default {
     handleSelect (value) {
       this.$http.get(`/api/cinema/location/${value}`)
         .then(response => {
+          for (let i = 0; i < response.body.length; i++) {
+            response.body[i].rank /= 2
+          }
           this.cinemas = response.body
         })
     },
