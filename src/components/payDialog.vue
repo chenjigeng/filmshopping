@@ -45,10 +45,10 @@ export default {
       this.$store.commit('toggleDiglog', 'Pay')
     },
     submit () {
-      if (!this.userInfo.login) {
-        this.$store.commit('toggleDiglog', 'LR')
-        return
-      }
+      // if (!this.userInfo.login) {
+      //   this.$store.commit('toggleDiglog', 'LR')
+      //   return
+      // }
       // 约影
       if (this.seatInfo[1] === -2) {
         this.$http.get('/api/order/participate/' + this.seatInfo[0]).then(resp => {
@@ -91,7 +91,7 @@ export default {
       }).catch(reason => {
         this.$message({
           type: 'error',
-          message: reason.bodyText
+          message: reason.errMsg
         })
       })
     },
@@ -99,6 +99,19 @@ export default {
       return new Promise(resolve => {
         this.$http.get('/api/ticket/buy/' + id).then(resp => {
           resolve(resp)
+        }).catch(reason => {
+          if (reason.status === 401) {
+            this.$store.commit('changeUserInfo', {
+              phone: '',
+              username: '',
+              gender: '',
+              login: false
+            })
+            this.$message({
+              type: 'error',
+              message: '未登录或登录超时，请先登录'
+            })
+          }
         })
       })
     }

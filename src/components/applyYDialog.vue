@@ -60,6 +60,8 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           var yueinfo = this.form
+          // 用于判断是否进入约影模式
+          yueinfo.phone = 'hasY'
           this.$store.commit('applyY', yueinfo)
           this.$store.commit('toggleDiglog', 'Y')
           this.$message('已进入约影定座模式！')
