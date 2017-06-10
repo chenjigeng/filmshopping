@@ -14,7 +14,8 @@ const content = {
     },
     yueinfo: {
       messsage: '',
-      phone: ''
+      phone: '',
+      show: true
     },
     seatInfo: null,
     updateSeats: false,

@@ -65,7 +65,8 @@
         this.bindSeatId = null
         this.$store.commit('applyY', {
           message: '',
-          phone: ''
+          phone: '',
+          show: true
         })
         let _loading = this.$loading({fullscreen: true})
         this.loading = true
@@ -136,7 +137,8 @@
           this.$message('已取消约影')
           this.$store.commit('applyY', {
             message: '',
-            phone: ''
+            phone: '',
+            show: true
           })
         } else {
           this.$store.commit('toggleDiglog', 'Y')
@@ -201,7 +203,8 @@
             if (ticket.status === 2) {
               this.$store.commit('applyY', {
                 message: ticket.message,
-                phone: ''
+                phone: '',
+                show: true
               })
             }
           }

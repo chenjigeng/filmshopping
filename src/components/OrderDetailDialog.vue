@@ -13,8 +13,8 @@
     <p class='location mt-5'>{{ scheduleInfo.cinemaName }}</p>
     <p class='seat' v-for='t in tickets'>{{ t.posX }} 排 {{ t.posY }} 座</p>
     <div>
-      <p class='link' v-if='yueInfo.phone'>约友联系方式是：{{ yueInfo.phone }}</p>
-      <p class='link' v-if='yueInfo.message'>约友留言：{{ yueInfo.message }}</p>
+      <!-- <p class='link' v-if='yueInfo.phone'>约友联系方式是：{{ yueInfo.phone }}</p> -->
+      <p class='link' v-if='yueInfo.message && yueInfo.show'>约友留言：{{ yueInfo.message }}</p>
       <p class='welcome' v-if='yueInfo.phone'>请享受欢乐约影吧</p>
     </div>
     <img src='../assets/yue3.png' class='logo'>
