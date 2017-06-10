@@ -4,16 +4,16 @@
       el-col.tips(v-bind:span='6')
         .tip.m-5
           img(src="../assets/seat-lock.png")
-          span 已选锁定坑
+          span 已出售
         .tip.m-5
           img(src="../assets/seat-blank.png")
-          span 可选空白坑
+          span 待出售
         .tip.m-5
           img(src="../assets/seat-yue.png")
-          span 可选约影坑
+          span 可约影
         .tip.m-5
           img(src="../assets/seat-choose.png")
-          span 选中这坑啦
+          span 已选择
       el-col.trapezoid(v-bind:span='12')
         div
       el-col.apply-btn-container(v-bind:span='6')
