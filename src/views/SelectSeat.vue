@@ -167,7 +167,6 @@
         }
       },
       autoSelectSeat: function (item) {
-        console.log('auto')
         var bindItem = null
         if (item.posY === 4 || item.posY === 15 || item.posY === 19) {
           bindItem = this.tickets.find(t => {
@@ -181,7 +180,6 @@
         if (bindItem._status === 1 || bindItem._status === 2) {
           return
         }
-        console.log('b s', this.bindSeatId)
         this.bindSeatId = [item.id, bindItem.id]
       },
       clkBuy: function () {

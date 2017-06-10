@@ -8,7 +8,6 @@ import Order from '@/views/Order'
 
 Vue.use(Router)
 
-console.log(Home)
 export default new Router({
   mode: 'history',
   routes: [
