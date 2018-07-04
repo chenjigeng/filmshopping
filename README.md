@@ -2,6 +2,8 @@
 
 > A film shopping website
 
+本项目后台已经下线。此项目已废弃。
+
 ## dependencies
 ```bash
 脚手架: vue-cli
